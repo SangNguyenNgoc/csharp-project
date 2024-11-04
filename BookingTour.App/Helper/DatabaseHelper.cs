@@ -135,4 +135,30 @@ public sealed class DatabaseHelper : IDisposable
         _connection.Dispose();
         _logger.Log("INFO", "DatabaseHelper disposed.");
     }
+
+    
+    // query to entities
+    public List<T> ExecuteQueryToEntities<T>(string query, Func<MySqlDataReader, T> map,
+        params MySqlParameter[]? parameters)
+    {
+        var entities = new List<T>();
+
+        using var command = new MySqlCommand(query, _connection, _transaction);
+        if (parameters != null)
+        {
+            command.Parameters.AddRange(parameters);
+        }
+
+        OpenConnection();
+
+        using var reader = command.ExecuteReader();
+        while (reader.Read())
+        {
+            var entity = map(reader);
+            entities.Add(entity);
+        }
+
+        _logger.Log("INFO", "Executed query and mapped entities.");
+        return entities;
+    }
 }
