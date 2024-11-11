@@ -14,7 +14,7 @@ public partial class Itinerary
     /// </summary>
     public int NumberOfDays { get; set; }
 
-    public int? Vehicle { get; set; }
+    public string? Vehicle { get; set; }
 
     public string? Description { get; set; }
 
