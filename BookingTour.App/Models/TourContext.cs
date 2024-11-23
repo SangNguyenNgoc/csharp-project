@@ -390,9 +390,6 @@ public partial class TourContext : DbContext
             entity.Property(e => e.Age)
                 .HasColumnType("int(11)")
                 .HasColumnName("age");
-            entity.Property(e => e.Description)
-                .HasColumnType("int(11)")
-                .HasColumnName("description");
             entity.Property(e => e.Email)
                 .HasColumnType("int(11)")
                 .HasColumnName("email");

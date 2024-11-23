@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace BookingTour.App.Models;
 
@@ -7,9 +8,12 @@ public partial class User
 {
     public int Id { get; set; }
 
-    public int? Password { get; set; }
+    [MaxLength(50)]
+    public string? Password { get; set; }
 
-    public int? Role { get; set; }
+    public int RoleId { get; set; }
+
+    public virtual Role? Role { get; set; } 
 
     public string? Username { get; set; }
 
@@ -17,11 +21,11 @@ public partial class User
 
     public int? Age { get; set; }
 
-    public int? Email { get; set; }
+    [MaxLength(30)]
+    public string? Email { get; set; }
 
-    public int? PhoneNumber { get; set; }
-
-    public int? Description { get; set; }
+    [MaxLength(20)]
+    public string? PhoneNumber { get; set; }
 
     public bool? IsBlock { get; set; }
 

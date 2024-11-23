@@ -20,6 +20,7 @@ public class UnitOfWork : IDisposable
     public TourDao Tour { get; } = TourDao.Instance;
     public TourGuideDao TourGuide { get; } = TourGuideDao.Instance;
     public UserDao User { get; } = UserDao.Instance;
+    public RoleDao Role { get; } = RoleDao.Instance;
     
     public static UnitOfWork Instance => _instance.Value;
 
@@ -31,7 +32,7 @@ public class UnitOfWork : IDisposable
             action(this);
             _dbHelper.CommitTransaction();
         }
-        catch (Exception)
+        catch (System.Exception)
         {
             _dbHelper.RollbackTransaction();
             throw;

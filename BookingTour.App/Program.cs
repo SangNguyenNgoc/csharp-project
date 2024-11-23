@@ -14,6 +14,37 @@ internal static class Program
         // To customize application configuration such as set high DPI settings or default font,
         // see https://aka.ms/applicationconfiguration.
         ApplicationConfiguration.Initialize();
-        Application.Run(new MainForm());
+        Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
+        Application.EnableVisualStyles();
+        Application.SetCompatibleTextRenderingDefault(false);
+
+        bool isLoggedIn = false;
+
+        do
+        {
+            using (var loginForm = new LoginForm())
+            {
+                if (loginForm.ShowDialog() == DialogResult.OK)
+                {
+                    isLoggedIn = true;
+                }
+                else
+                {
+                    isLoggedIn = false;
+                }
+            }
+
+            if (isLoggedIn)
+            {
+                using var mainForm = new MainForm();
+                if (mainForm.ShowDialog() == DialogResult.Cancel)
+                {
+                    isLoggedIn = false;
+                }
+            }
+
+        } while (isLoggedIn);
+
+        //Application.Run(new MainForm());
     }
 }
