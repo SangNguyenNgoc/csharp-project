@@ -85,7 +85,7 @@ public class UserDao
             Username = row["username"].ToString(),
             Password = row["password"].ToString(),
             Name = row["name"].ToString(),
-            Age = row["age"] != DBNull.Value ? Convert.ToInt32(row["age"]) : null,
+            // Age = row["age"] != DBNull.Value ? Convert.ToInt32(row["age"]) : null,
             Email = row["email"].ToString(),
             PhoneNumber = row["phone_number"].ToString(),
             IsBlock = row["is_block"] != DBNull.Value ? Convert.ToBoolean(row["is_block"]) : null,

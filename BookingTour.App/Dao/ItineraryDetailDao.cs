@@ -11,7 +11,7 @@ public class ItineraryDetailDao
     private readonly DatabaseHelper _dbHelper = DatabaseHelper.Instance;
 
     public static ItineraryDetailDao Instance => _instance.Value;
-    
+
     public ICollection<ItineraryDetail> GetByTourInterfaceId(int tourInterfaceId)
     {
         const string query = "SELECT * FROM itinerary_detail WHERE tour_interface_id = @TourInterfaceId";
@@ -30,7 +30,9 @@ public class ItineraryDetailDao
                 ActivityId = Convert.ToInt32(row["activity_id"]),
                 DayNumber = row["day_number"] as int?,
                 ServiceId = row["service_id"] as int?,
-                StartTime = row.IsNull("start_time") ? null : TimeOnly.FromDateTime(Convert.ToDateTime(row["start_time"])),
+                StartTime = row.IsNull("start_time")
+                    ? null
+                    : TimeOnly.FromDateTime(Convert.ToDateTime(row["start_time"])),
                 EndTime = row.IsNull("end_time") ? null : TimeOnly.FromDateTime(Convert.ToDateTime(row["end_time"]))
             }).ToList();
     }
@@ -72,7 +74,7 @@ public class ItineraryDetailDao
 
         return _dbHelper.ExecuteNonQuery(query, parameters);
     }
-    
+
     public bool IsTimeSlotConflict(ItineraryDetail detail)
     {
         const string query = @"
@@ -94,5 +96,56 @@ public class ItineraryDetailDao
 
         var conflictCount = Convert.ToInt32(_dbHelper.ExecuteScalar(query, parameters));
         return conflictCount > 0;
+    }
+
+    public List<ItineraryDetail> GetItineraryDetailsOfTour(int tourId)
+    {
+        var query = @"SELECT itd.tour_interface_id tour_interface_id, it.name itinerary_name, itd.day_number day_number,
+        ac.id activity_id,
+        ac.name activity_name, 
+        pl.id place_id,
+        pl.name place_name, 
+        sv.id service_id,
+        sv.name service_name, 
+        itd.start_time start_time, 
+        itd.end_time end_time 
+        FROM itinerary_detail itd
+        JOIN activity ac ON itd.activity_id = ac.id
+        JOIN place pl ON ac.place_id = pl.id
+        JOIN service sv ON itd.service_id = sv.id
+        JOIN itinerary it ON itd.tour_interface_id = it.id
+        JOIN tour t ON t.itinerary_id  = it.id
+        WHERE t.id = @tourId";
+
+        var parameters = new[]
+        {
+            new MySqlParameter("@tourId", tourId)
+        };
+
+        return _dbHelper.ExecuteQueryToEntities(query, reader =>
+            new ItineraryDetail
+            {
+                TourInterfaceId = reader.GetInt32("tour_interface_id"),
+                ActivityId = reader.GetInt32("activity_id"),
+                Activity = new Activity
+                {
+                    Id = reader.GetInt32("activity_id"),
+                    Name = reader.GetString("activity_name"),
+                    Place = new Place
+                    {
+                        Id = reader.GetInt32("place_id"),
+                        Name = reader.GetString("place_name")
+                    }
+                },
+                ServiceId = reader.GetInt32("service_id"),
+                Service = new Service
+                {
+                    Id = reader.GetInt32("service_id"),
+                    Name = reader.GetString("service_name")
+                },
+                DayNumber = reader.GetInt32("day_number"),
+                StartTime = reader.IsDBNull("start_time") ? null : TimeOnly.FromTimeSpan(reader.GetTimeSpan("start_time")),
+                EndTime = reader.IsDBNull("end_time") ? null : TimeOnly.FromTimeSpan(reader.GetTimeSpan("end_time"))
+            }, parameters.ToArray());
     }
 }
