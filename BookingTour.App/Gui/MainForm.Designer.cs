@@ -45,6 +45,8 @@ namespace BookingTour.App.Gui
             panelTop = new Panel();
             accountButton = new FontAwesome.Sharp.IconButton();
             mySqlConnection1 = new MySqlConnector.MySqlConnection();
+            contentPanel = new Panel();
+            titleLabel = new Label();
             panelMenu.SuspendLayout();
             panelLogo.SuspendLayout();
             panelTop.SuspendLayout();
@@ -272,6 +274,7 @@ namespace BookingTour.App.Gui
             // panelTop
             // 
             panelTop.BackColor = Color.White;
+            panelTop.Controls.Add(titleLabel);
             panelTop.Controls.Add(accountButton);
             panelTop.Dock = DockStyle.Top;
             panelTop.Location = new Point(170, 0);
@@ -289,10 +292,12 @@ namespace BookingTour.App.Gui
             accountButton.IconColor = Color.Black;
             accountButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             accountButton.IconSize = 36;
-            accountButton.Location = new Point(957, 0);
+            accountButton.Location = new Point(853, 0);
             accountButton.Name = "accountButton";
-            accountButton.Size = new Size(37, 50);
+            accountButton.Size = new Size(141, 50);
             accountButton.TabIndex = 1;
+            accountButton.Text = "Tên người dùng";
+            accountButton.TextImageRelation = TextImageRelation.TextBeforeImage;
             accountButton.UseVisualStyleBackColor = true;
             // 
             // mySqlConnection1
@@ -301,10 +306,30 @@ namespace BookingTour.App.Gui
             mySqlConnection1.ProvidePasswordCallback = null;
             mySqlConnection1.RemoteCertificateValidationCallback = null;
             // 
+            // contentPanel
+            // 
+            contentPanel.BackColor = SystemColors.Control;
+            contentPanel.Dock = DockStyle.Fill;
+            contentPanel.Location = new Point(170, 50);
+            contentPanel.Name = "contentPanel";
+            contentPanel.Size = new Size(1014, 611);
+            contentPanel.TabIndex = 2;
+            // 
+            // titleLabel
+            // 
+            titleLabel.AutoSize = true;
+            titleLabel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            titleLabel.Location = new Point(15, 14);
+            titleLabel.Name = "titleLabel";
+            titleLabel.Size = new Size(64, 21);
+            titleLabel.TabIndex = 2;
+            titleLabel.Text = "Tiêu đề";
+            // 
             // MainForm
             // 
             BackColor = SystemColors.Control;
             ClientSize = new Size(1184, 661);
+            Controls.Add(contentPanel);
             Controls.Add(panelTop);
             Controls.Add(panelMenu);
             Cursor = Cursors.Hand;
@@ -314,6 +339,7 @@ namespace BookingTour.App.Gui
             panelMenu.ResumeLayout(false);
             panelLogo.ResumeLayout(false);
             panelTop.ResumeLayout(false);
+            panelTop.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -334,5 +360,7 @@ namespace BookingTour.App.Gui
         private FontAwesome.Sharp.IconButton logoButton;
         private FontAwesome.Sharp.IconButton accountButton;
         private MySqlConnector.MySqlConnection mySqlConnection1;
+        private Panel contentPanel;
+        private Label titleLabel;
     }
 }

@@ -9,5 +9,5 @@ public partial class Place
 
     public string Name { get; set; } = null!;
 
-    public virtual ICollection<Activity> Activities { get; set; } = new List<Activity>();
+    public virtual ICollection<Activity>? Activities { get; set; } = new List<Activity>();
 }

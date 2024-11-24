@@ -58,4 +58,31 @@ public class PlaceBus
         
         return _unit.Place.UpdatePlace(place) == 0;
     }
+    
+    public List<Place> GetAllPlaces()
+    {
+        try
+        {
+            return _unit.Place.GetAll();
+        }
+        catch (System.Exception ex)
+        {
+            Console.WriteLine($@"Error fetching all places: {ex.Message}");
+            throw;
+        }
+    }
+    
+    
+    public Place? GetPlaceById(int id)
+    {
+        try
+        {
+            return _unit.Place.GetById(id);
+        }
+        catch (System.Exception ex)
+        {
+            Console.WriteLine($@"Error fetching place by ID: {ex.Message}");
+            throw;
+        }
+    }
 }

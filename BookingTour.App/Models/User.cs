@@ -19,7 +19,7 @@ public partial class User
 
     public string? Name { get; set; }
 
-    public int? Age { get; set; }
+    // public int? Age { get; set; }
 
     [MaxLength(30)]
     public string? Email { get; set; }
@@ -29,7 +29,7 @@ public partial class User
 
     public bool? IsBlock { get; set; }
 
-    public virtual ICollection<Bill> Bills { get; set; } = new List<Bill>();
+    public virtual ICollection<Bill>? Bills { get; set; } = new List<Bill>();
 
-    public virtual ICollection<Guide> Guides { get; set; } = new List<Guide>();
+    public virtual ICollection<Guide>? Guides { get; set; } = new List<Guide>();
 }

@@ -32,9 +32,6 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>Resources.resx</DependentUpon>
       </Compile>
-      <Compile Update="Gui\AccountControl.cs">
-        <SubType>UserControl</SubType>
-      </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -42,6 +39,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Gui\Service\" />
     </ItemGroup>
 
 </Project>
