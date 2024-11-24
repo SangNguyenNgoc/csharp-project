@@ -22,15 +22,15 @@ public class UserDao
         return (from DataRow row in result.Rows
             select new User
             {
-                Id = Convert.ToInt32(row["Id"]),
-                Username = row["Username"].ToString(),
-                Password = row["Password"].ToString(),
-                Name = row["Name"].ToString(),
-                Age = row["Age"] != DBNull.Value ? Convert.ToInt32(row["Age"]) : null,
-                Email = row["Email"].ToString(),
-                PhoneNumber = row["PhoneNumber"].ToString(),
-                IsBlock = row["IsBlock"] != DBNull.Value ? Convert.ToBoolean(row["IsBlock"]) : null,
-                Role = RoleDao.Instance.GetById(Convert.ToInt32(row["RoleId"])) // lấy Role tương ứng
+                Id = Convert.ToInt32(row["id"]),
+                Username = row["username"].ToString(),
+                Password = row["password"].ToString(),
+                Name = row["name"].ToString(),
+                // Age = row["age"] != DBNull.Value ? Convert.ToInt32(row["age"]) : null,
+                Email = row["email"].ToString(),
+                PhoneNumber = row["phone_number"].ToString(),
+                IsBlock = row["is_block"] != DBNull.Value ? Convert.ToBoolean(row["is_block"]) : null,
+                Role = RoleDao.Instance.GetById(Convert.ToInt32(row["role_id"])) // lấy Role tương ứng
             }).ToList();
     }
 
@@ -51,15 +51,16 @@ public class UserDao
         var row = result.Rows[0];
         return new User
         {
-            Id = Convert.ToInt32(row["Id"]),
-            Username = row["Username"].ToString(),
-            Password = row["Password"].ToString(),
-            Name = row["Name"].ToString(),
-            Age = row["Age"] != DBNull.Value ? Convert.ToInt32(row["Age"]) : null,
-            Email = row["Email"].ToString(),
-            PhoneNumber = row["PhoneNumber"].ToString(),
-            IsBlock = row["IsBlock"] != DBNull.Value ? Convert.ToBoolean(row["IsBlock"]) : null,
-            Role = RoleDao.Instance.GetById(Convert.ToInt32(row["RoleId"]))
+            Id = Convert.ToInt32(row["id"]),
+            Username = row["username"].ToString(),
+            Password = row["password"].ToString(),
+            Name = row["name"].ToString(),
+            // Age = row["Age"] != DBNull.Value ? Convert.ToInt32(row["Age"]) : null,
+            Email = row["email"].ToString(),
+            PhoneNumber = row["phone_number"].ToString(),
+            IsBlock = row["is_block"] != DBNull.Value ? Convert.ToBoolean(row["is_block"]) : null,
+            RoleId = Convert.ToInt32(row["role_id"]),
+            Role = RoleDao.Instance.GetById(Convert.ToInt32(row["role_id"]))
         };
     }
     
@@ -97,10 +98,10 @@ public class UserDao
     public int Create(User user)
     {
         const string query 
-            = """
-              INSERT INTO User (id, username, password, name, age, email, phone_number, description, is_block, role_id)
-              VALUES (@Id ,@Username, @Password, @Name, @Age, @Email, @PhoneNumber, @IsBlock, @RoleId)
-              """;
+            = $"""
+               INSERT INTO user (id, username, password, name, email, phone_number, is_block, role_id)
+               VALUES (@Id ,@Username, @Password, @Name, @Email, @PhoneNumber, @IsBlock, @RoleId)
+               """;
         
         var parameters = new MySqlParameter[]
         {
@@ -108,11 +109,11 @@ public class UserDao
             new("@Username", user.Username),
             new("@Password", user.Password),
             new("@Name", user.Name),
-            new("@Age", user.Age ?? (object)DBNull.Value),
+            // new("@Age", user.Age ?? (object)DBNull.Value),
             new("@Email", user.Email),
             new("@PhoneNumber", user.PhoneNumber),
             new("@IsBlock", user.IsBlock ?? (object)DBNull.Value),
-            new("@RoleId", user.Role?.Id ?? (object)DBNull.Value)
+            new("@RoleId", user.RoleId)
         };
         
         return _dbHelper.ExecuteNonQuery(query, parameters);
@@ -125,10 +126,8 @@ public class UserDao
             SET username = @Username, 
                 phone_number = @Password, 
                 name = @Name, 
-                age = @Age,
                 email = @Email, 
                 phone_number = @PhoneNumber, 
-                description = @Description,
                 is_block = @IsBlock, 
                 role_id = @RoleId
             WHERE Id = @Id";
@@ -138,11 +137,11 @@ public class UserDao
             new("@Username", user.Username),
             new("@Password", user.Password),
             new("@Name", user.Name),
-            new("@Age", user.Age ?? (object)DBNull.Value),
+            // new("@Age", user.Age ?? (object)DBNull.Value),
             new("@Email", user.Email),
             new("@PhoneNumber", user.PhoneNumber),
             new("@IsBlock", user.IsBlock ?? (object)DBNull.Value),
-            new("@RoleId", user.Role?.Id ?? (object)DBNull.Value),
+            new("@RoleId", user.RoleId),
             new("@Id", user.Id)
         };
         

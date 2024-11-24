@@ -1,10 +1,8 @@
-﻿using FontAwesome.Sharp;
-using System.Diagnostics;
+﻿using BookingTour.App.Gui.Account;
+using FontAwesome.Sharp;
 using BookingTour.App.Models;
-using MySqlX.XDevAPI;
 using Session = BookingTour.App.Context.Session;
-using System.Runtime.InteropServices;
-using System.Drawing.Drawing2D;
+using BookingTour.App.Gui.Place;
 
 namespace BookingTour.App.Gui;
 
@@ -13,6 +11,7 @@ public partial class MainForm : Form
 
     private IconButton? _currentButton;
     private readonly Panel _leftBorderBtn;
+    private Form CurrentChildForm;
 
     public MainForm()
     {
@@ -69,6 +68,8 @@ public partial class MainForm : Form
         _currentButton.IconColor = color;
         _currentButton.Padding = new Padding(20, 0, 0, 0);
 
+        titleLabel.Text = _currentButton.Text;
+
         _leftBorderBtn.BackColor = color;
         _leftBorderBtn.Location = new Point(0, _currentButton.Location.Y);
         _leftBorderBtn.Visible = true;
@@ -87,6 +88,19 @@ public partial class MainForm : Form
         _currentButton.TextImageRelation = TextImageRelation.ImageBeforeText;
         _currentButton.ImageAlign = ContentAlignment.MiddleLeft;
 
+    }
+
+    private void OpenChildRorm(Form form)
+    {
+        CurrentChildForm?.Close();
+        CurrentChildForm = form;
+        form.TopLevel = false;
+        form.FormBorderStyle = FormBorderStyle.None;
+        form.Dock = DockStyle.Fill;
+        contentPanel.Controls.Add(form);
+        contentPanel.Tag = form;
+        form.BringToFront();
+        form.Show();
     }
 
     private void iconButtonTravel_Click(object sender, EventArgs e)
@@ -117,11 +131,13 @@ public partial class MainForm : Form
     private void iconButtonLocation_Click(object sender, EventArgs e)
     {
         ActiveButton(sender);
+        OpenChildRorm(new PlaceForm());
     }
 
     private void iconButtonAccount_Click(object sender, EventArgs e)
     {
         ActiveButton(sender);
+        OpenChildRorm(new AccountForm());
     }
 
     private void panelMenu_Paint(object sender, PaintEventArgs e)
@@ -136,6 +152,8 @@ public partial class MainForm : Form
         var scaleFactor = dpiX / 96.0f; // Tính tỷ lệ so với DPI chuẩn (96 DPI)
 
         ScaleControls(this, scaleFactor);
+
+        accountButton.Text = Session.Get<User>("CurrentUser")?.Name;
     }
 
     private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

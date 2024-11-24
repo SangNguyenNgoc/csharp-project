@@ -387,9 +387,9 @@ public partial class TourContext : DbContext
                 .ValueGeneratedNever()
                 .HasColumnType("int(11)")
                 .HasColumnName("id");
-            entity.Property(e => e.Age)
-                .HasColumnType("int(11)")
-                .HasColumnName("age");
+            // entity.Property(e => e.Age)
+            //     .HasColumnType("int(11)")
+            //     .HasColumnName("age");
             entity.Property(e => e.Email)
                 .HasColumnType("int(11)")
                 .HasColumnName("email");
