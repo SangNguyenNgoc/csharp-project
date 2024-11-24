@@ -174,4 +174,15 @@ public class TourBus
         });
         return result;
     }
+    
+    public List<Tour> GetPaginatedTours(string keyword, int page, int limit)
+    {
+        return _unit.Tour.GetPaginatedTours(keyword, page, limit);
+    }
+    
+    // get tours of guide by guideId
+    public List<Tour> GetToursOfGuide(int guideId)
+    {
+        return _unit.Tour.GetToursOfGuide(guideId);
+    }
 }

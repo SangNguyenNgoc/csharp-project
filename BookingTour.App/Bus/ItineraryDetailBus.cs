@@ -108,4 +108,9 @@ public class ItineraryDetailBus
         return result == 0 ? "Failed to delete itinerary detail." : "Delete itinerary detail successfully.";
     }
 
+    // use to get itinerary details of a tour
+    public List<ItineraryDetail> GetItineraryDetailsOfTour(int tourId)
+    {
+        return _unit.ItineraryDetail.GetItineraryDetailsOfTour(tourId);
+    }
 }
