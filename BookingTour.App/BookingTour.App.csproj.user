@@ -1,10 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Compile Update="Gui\Account\AccountForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Gui\Account\AddAccountForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Gui\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Gui\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Gui\Place\PlaceForm.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>

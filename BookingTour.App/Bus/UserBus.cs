@@ -1,4 +1,5 @@
-﻿using BookingTour.App.Exception;
+﻿using BookingTour.App.Dao;
+using BookingTour.App.Exception;
 using BookingTour.App.Helper;
 using BookingTour.App.Models;
 
@@ -9,6 +10,11 @@ public class UserBus
     private readonly UnitOfWork _unit = UnitOfWork.Instance;
     private static readonly Lazy<UserBus> _instance = new(() => new UserBus());
     public static UserBus Instance => _instance.Value;
+    
+    public ICollection<User> GetAllUsers()
+    {
+        return _unit.User.GetAll();
+    }
 
     public int CreateUser(User user)
     {
@@ -56,6 +62,16 @@ public class UserBus
         if (user.IsBlock == true)
         {
             throw new AccountBlockedException("Tài khoản đã bị khóa.");
+        }
+        return user;
+    }
+
+    public User GetUserById(int userId)
+    {
+        var user = UserDao.Instance.GetById(userId);
+        if (user == null)
+        {
+            throw new ArgumentException("User not found.");
         }
         return user;
     }
