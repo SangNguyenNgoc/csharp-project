@@ -13,6 +13,9 @@
     <Compile Update="Gui\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Gui\Place\AddActivityForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Gui\Place\PlaceForm.cs">
       <SubType>Form</SubType>
     </Compile>

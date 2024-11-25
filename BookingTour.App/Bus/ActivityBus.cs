@@ -9,6 +9,21 @@ public class ActivityBus
     private readonly UnitOfWork _unit = UnitOfWork.Instance;
     private static readonly Lazy<ActivityBus> _instance = new(() => new ActivityBus());
     public static ActivityBus Instance => _instance.Value;
+    
+    public ICollection<Activity> GetAllActivities()
+    {
+        return _unit.Activity.GetAll();
+    }
+
+    public Activity? GetActivityById(int id)
+    {
+        return _unit.Activity.GetById(id);
+    }
+
+    public List<Activity> GetActivitiesByPlaceId(int placeId)
+    {
+        return _unit.Activity.GetByPlaceId(placeId);
+    }
 
     public bool ValidateActivity(Activity? activity, out string validationErrors)
     {

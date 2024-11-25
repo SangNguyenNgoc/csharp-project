@@ -49,7 +49,27 @@ public class ActivityDao
             PlaceId = row.IsNull("place_id") ? null : (int?)Convert.ToInt32(row["place_id"])
         };
     }
+    
+    public List<Activity> GetByPlaceId(int placeId)
+    {
+        const string query = "SELECT * FROM activity WHERE place_id = @PlaceId";
+        var parameters = new[]
+        {
+            new MySqlParameter("@PlaceId", placeId)
+        };
 
+        var result = _dbHelper.ExecuteQuery(query, parameters);
+
+        return (from DataRow row in result.Rows
+            select new Activity
+            {
+                Id = Convert.ToInt32(row["id"]),
+                Name = row["name"].ToString()!,
+                Description = row["description"].ToString()!,
+                PlaceId = row.IsNull("place_id") ? null : (int?)Convert.ToInt32(row["place_id"])
+            }).ToList();
+    }
+    
     // Thêm mới Activity
     public int AddActivity(Activity activity)
     {
