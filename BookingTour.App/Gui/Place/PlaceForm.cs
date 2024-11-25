@@ -1,4 +1,5 @@
 ﻿using BookingTour.App.Bus;
+using BookingTour.App.Models;
 
 namespace BookingTour.App.Gui.Place;
 
@@ -126,15 +127,15 @@ public partial class PlaceForm : Form
         if (name != null)
         {
             inputTextBox.Text = placeName;
-        } 
+        }
 
         var result = inputBox.ShowDialog();
         return result == DialogResult.OK ? inputTextBox.Text.Trim() : null;
     }
-    
+
     private void searchButton_Click(object sender, EventArgs e)
     {
-        var keywords = searchTextbox.Text.Trim().ToLower(); 
+        var keywords = searchTextbox.Text.Trim().ToLower();
         var keywordList = keywords.Split(' ');
         var filteredData = PlaceBus.Instance.GetAllPlaces().Where(user =>
             keywordList.All(keyword =>
@@ -151,7 +152,7 @@ public partial class PlaceForm : Form
     {
         LoadPaceData(null);
     }
-    
+
     private void DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
     {
         // ReSharper disable once InvertIf
@@ -170,7 +171,119 @@ public partial class PlaceForm : Form
             {
                 MessageBox.Show(@"Tên địa điểm không được để trống!", @"Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
+
         }
+    }
+
+    private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+    {
+        if (dataGridView1.CurrentRow == null) return;
+        // Lấy giá trị ID từ cột "Id" của dòng đang được chọn
+        var placeId = (int)dataGridView1.CurrentRow.Cells["Id"].Value;
+
+        //MessageBox.Show($"ID được chọn: {placeId}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        var data = ActivityBus.Instance.GetActivitiesByPlaceId(placeId);
+        LoadActivityData(data);
+    }
+
+    private void LoadActivityData(ICollection<Activity> data)
+    {
+        try
+        {
+            dataGridView2.Rows.Clear();
+            foreach (var place in data)
+            {
+                dataGridView2.Rows.Add(
+                    place.Id,
+                    place.Name
+                );
+            }
+        }
+        catch (System.Exception ex)
+        {
+            MessageBox.Show($@"Lỗi khi tải dữ liệu: {ex.Message}", @"Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+    }
+
+    private void addActivityButton_Click(object sender, EventArgs e)
+    {
+        using var form = new AddActivityForm(null);
+        var result = form.ShowDialog();
+
+        if (result != DialogResult.OK) return;
+        var activityName = form.ActivityName;
+        var activityDescription = form.ActivityDescription;
+        //MessageBox.Show($"Tên hoạt động: {activityName}\nMô tả: {activityDescription}",
+        //    "Thông tin hoạt động", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        if (dataGridView1.CurrentRow == null) return;
+        var placeId = (int)dataGridView1.CurrentRow.Cells["Id"].Value;
+        var activity = new Activity
+        {
+            Id = 0,
+            Name = activityName,
+            Description = activityDescription,
+            PlaceId = placeId,
+            ItineraryDetails = null,
+            Place = null
+        };
+        ActivityBus.Instance.CreateActivity(activity);
+        var data = ActivityBus.Instance.GetActivitiesByPlaceId(placeId);
+        LoadActivityData(data);
+    }
+
+    private void refreshActivityButton_Click(object sender, EventArgs e)
+    {
+        if (dataGridView1.CurrentRow == null) return;
+        var placeId = (int)dataGridView1.CurrentRow.Cells["Id"].Value;
+        var data = ActivityBus.Instance.GetActivitiesByPlaceId(placeId);
+        LoadActivityData(data);
+    }
+
+    private void DataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+    {
+        // ReSharper disable once InvertIf
+        if (e.ColumnIndex == dataGridView2.Columns["AcAction"]!.Index && e.RowIndex >= 0)
+        {
+            var activityId = (int)dataGridView2.Rows[e.RowIndex].Cells["AcId"].Value;
+            // MessageBox.Show($"ID được chọn: {activityId}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            using var form = new AddActivityForm(activityId);
+            var result = form.ShowDialog();
+
+            if (result != DialogResult.OK) return;
+            var activityName = form.ActivityName;
+            var activityDescription = form.ActivityDescription;
+            //MessageBox.Show($"Tên hoạt động: {activityName}\nMô tả: {activityDescription}",
+            //    "Thông tin hoạt động", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (dataGridView1.CurrentRow == null) return;
+            var placeId = (int)dataGridView1.CurrentRow.Cells["Id"].Value;
+            var activity = new Activity
+            {
+                Id = activityId,
+                Name = activityName,
+                Description = activityDescription,
+                PlaceId = placeId,
+                ItineraryDetails = null,
+                Place = null
+            };
+            ActivityBus.Instance.UpdateActivity(activity);
+            var data = ActivityBus.Instance.GetActivitiesByPlaceId(placeId);
+            LoadActivityData(data);
+        }
+    }
+
+    private void searchActivityButton_Click(object sender, EventArgs e)
+    {
+        if (dataGridView1.CurrentRow == null) return;
+        var placeId = (int)dataGridView1.CurrentRow.Cells["Id"].Value;
+        var keywords = searchActivityTextbox.Text.Trim().ToLower();
+        var keywordList = keywords.Split(' ');
+        var filteredData = ActivityBus.Instance.GetActivitiesByPlaceId(placeId).Where(activity =>
+            keywordList.All(keyword =>
+                activity.Name!.Contains(keyword, StringComparison.CurrentCultureIgnoreCase)
+            )
+        ).ToList();
+
+        LoadActivityData(filteredData);
+        searchTextbox.Text = "";
     }
 }

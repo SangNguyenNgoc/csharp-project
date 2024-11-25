@@ -13,7 +13,7 @@ public partial class Activity
 
     public int? PlaceId { get; set; }
 
-    public virtual ICollection<ItineraryDetail> ItineraryDetails { get; set; } = new List<ItineraryDetail>();
+    public virtual ICollection<ItineraryDetail>? ItineraryDetails { get; set; } = new List<ItineraryDetail>();
 
     public virtual Place? Place { get; set; }
 }
