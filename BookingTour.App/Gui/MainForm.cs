@@ -1,9 +1,11 @@
 ﻿using BookingTour.App.Gui.Account;
+using BookingTour.App.Gui.Bill;
 using FontAwesome.Sharp;
 using BookingTour.App.Models;
 using Session = BookingTour.App.Context.Session;
 using BookingTour.App.Gui.Place;
 using BookingTour.App.Gui.Tour;
+using BookingTour.App.Gui.PassengerGui;
 
 namespace BookingTour.App.Gui;
 
@@ -115,11 +117,13 @@ public partial class MainForm : Form
     private void iconButtonCustomer_Click(object sender, EventArgs e)
     {
         ActiveButton(sender);
+        OpenChildRorm(new PassengerForm());
     }
 
     private void iconButtonBill_Click(object sender, EventArgs e)
     {
         ActiveButton(sender);
+        OpenChildRorm(new BillForm());
     }
 
     private void iconButtonSchedule_Click(object sender, EventArgs e)

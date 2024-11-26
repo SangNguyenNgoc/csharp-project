@@ -15,4 +15,14 @@ public class PassengerBus
     {
         return _unit.Passenger.GetPassengersOfTour(tourId);
     }
+
+    public ICollection<Passenger> GetAllPassengers()
+    {
+        return _unit.Passenger.GetAll();
+    }
+
+    public int CreatePassenger(Passenger passenger)
+    {
+        return _unit.Passenger.Create(passenger);
+    }
 }

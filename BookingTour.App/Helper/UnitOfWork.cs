@@ -21,6 +21,7 @@ public class UnitOfWork : IDisposable
     public TourGuideDao TourGuide { get; } = TourGuideDao.Instance;
     public UserDao User { get; } = UserDao.Instance;
     public RoleDao Role { get; } = RoleDao.Instance;
+    public StatisticsDao Statistics { get; } = StatisticsDao.Instance;
     
     public static UnitOfWork Instance => _instance.Value;
 

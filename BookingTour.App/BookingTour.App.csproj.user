@@ -7,10 +7,25 @@
     <Compile Update="Gui\Account\AddAccountForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Gui\BillGui\AddBillForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Gui\BillGui\BillForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Gui\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Gui\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Gui\PassengerGui\AddPassengerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Gui\PassengerGui\PassengerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Gui\Place\AddActivityForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Gui\Place\PlaceForm.cs">
