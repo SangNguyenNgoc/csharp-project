@@ -45,6 +45,7 @@
             age = new DataGridViewTextBoxColumn();
             action = new DataGridViewImageColumn();
             ImportExcel = new FontAwesome.Sharp.IconButton();
+            ExportExcel = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)dgvPassenger).BeginInit();
             SuspendLayout();
             // 
@@ -217,11 +218,30 @@
             ImportExcel.UseVisualStyleBackColor = false;
             ImportExcel.Click += ImportExcel_Click;
             // 
+            // ExportExcel
+            // 
+            ExportExcel.BackColor = Color.FromArgb(21, 128, 61);
+            ExportExcel.FlatAppearance.BorderColor = Color.FromArgb(21, 128, 61);
+            ExportExcel.FlatAppearance.BorderSize = 2;
+            ExportExcel.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            ExportExcel.ForeColor = SystemColors.ButtonFace;
+            ExportExcel.IconChar = FontAwesome.Sharp.IconChar.None;
+            ExportExcel.IconColor = Color.Black;
+            ExportExcel.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            ExportExcel.Location = new Point(447, 12);
+            ExportExcel.Name = "ExportExcel";
+            ExportExcel.Size = new Size(79, 29);
+            ExportExcel.TabIndex = 11;
+            ExportExcel.Text = "Export";
+            ExportExcel.UseVisualStyleBackColor = false;
+            ExportExcel.Click += ExportExcel_Click;
+            // 
             // PassengerForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1111, 593);
+            Controls.Add(ExportExcel);
             Controls.Add(ImportExcel);
             Controls.Add(dgvPassenger);
             Controls.Add(searchButton);
@@ -251,5 +271,6 @@
         private DataGridViewTextBoxColumn age;
         private DataGridViewImageColumn action;
         private FontAwesome.Sharp.IconButton ImportExcel;
+        private FontAwesome.Sharp.IconButton ExportExcel;
     }
 }
