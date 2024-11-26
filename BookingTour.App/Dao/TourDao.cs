@@ -12,8 +12,8 @@ public class TourDao
 
     public static TourDao Instance => _instance.Value;
 
-    public List<Tour> GetPaginatedTours(string keyword, int page, int pageSize, DateOnly? startDate = null,
-        DateOnly? endDate = null, int? minCapacity = null, int? maxCapacity = null, int? minRemainingSlots = null, int? maxRamainingSlots = null)
+    public List<Tour> GetPaginatedTours(string keyword, DateOnly? startDate = null,
+        DateOnly? endDate = null, int? minPrice = null, int? maxPrice = null)
     {
         var query = @"SELECT t.id, t.date_start, t.date_end, t.itinerary_id, t.price, t.capacity, t.remaining_slots,
                          i.id AS itinerary_id, i.name AS itinerary_name, i.description AS itinerary_description
@@ -44,33 +44,17 @@ public class TourDao
                 { Value = endDate.Value.ToDateTime(TimeOnly.MinValue) });
         }
 
-        if (minCapacity.HasValue)
+        if (minPrice.HasValue)
         {
-            query += " AND t.capacity >= @minCapacity";
-            parameters.Add(new MySqlParameter("@minCapacity", MySqlDbType.Int32) { Value = minCapacity.Value });
+            query += " AND t.price >= @minPrice";
+            parameters.Add(new MySqlParameter("@minPrice", MySqlDbType.Int32) { Value = minPrice.Value });
         }
 
-        if (maxCapacity.HasValue)
+        if (maxPrice.HasValue)
         {
-            query += " AND t.capacity <= @maxCapacity";
-            parameters.Add(new MySqlParameter("@maxCapacity", MySqlDbType.Int32) { Value = maxCapacity.Value });
+            query += " AND t.price <= @maxPrice";
+            parameters.Add(new MySqlParameter("@maxPrice", MySqlDbType.Int32) { Value = maxPrice.Value });
         }
-        
-        if(minRemainingSlots.HasValue)
-        {
-            query += " AND t.remaining_slots >= @minRemainingSlots";
-            parameters.Add(new MySqlParameter("@minRemainingSlots", MySqlDbType.Int32) { Value = minRemainingSlots.Value });
-        }
-        
-        if(maxRamainingSlots.HasValue)
-        {
-            query += " AND t.remaining_slots <= @maxRamainingSlots";
-            parameters.Add(new MySqlParameter("@maxRamainingSlots", MySqlDbType.Int32) { Value = maxRamainingSlots.Value });
-        }
-
-        query += " LIMIT @offset, @pageSize";
-        parameters.Add(new MySqlParameter("@offset", MySqlDbType.Int32) { Value = (page - 1) * pageSize });
-        parameters.Add(new MySqlParameter("@pageSize", MySqlDbType.Int32) { Value = pageSize });
 
         return _dbHelper.ExecuteQueryToEntities(query, reader =>
         {
