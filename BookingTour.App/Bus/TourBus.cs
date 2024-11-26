@@ -175,9 +175,10 @@ public class TourBus
         return result;
     }
     
-    public List<Tour> GetPaginatedTours(string keyword, int page, int limit)
+    public List<Tour> GetPaginatedTours(string keyword, DateOnly? startDate = null,
+        DateOnly? endDate = null, int? minPrice = null, int? maxPrice = null)
     {
-        return _unit.Tour.GetPaginatedTours(keyword, page, limit);
+        return _unit.Tour.GetPaginatedTours(keyword, startDate, endDate, minPrice, maxPrice);
     }
     
     // get tours of guide by guideId

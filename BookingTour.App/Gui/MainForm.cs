@@ -3,6 +3,7 @@ using FontAwesome.Sharp;
 using BookingTour.App.Models;
 using Session = BookingTour.App.Context.Session;
 using BookingTour.App.Gui.Place;
+using BookingTour.App.Gui.Tour;
 
 namespace BookingTour.App.Gui;
 
@@ -24,6 +25,8 @@ public partial class MainForm : Form
         AutoScaleMode = AutoScaleMode.Dpi;
         InitLeftMenu();
         InitializeDropdownButton();
+
+        OpenChildRorm(new TourForm()); // default form
     }
 
     private void InitializeDropdownButton()
@@ -106,6 +109,7 @@ public partial class MainForm : Form
     private void iconButtonTravel_Click(object sender, EventArgs e)
     {
         ActiveButton(sender);
+        OpenChildRorm(new TourForm());
     }
 
     private void iconButtonCustomer_Click(object sender, EventArgs e)
