@@ -47,9 +47,10 @@
             saveButton = new Button();
             dgvTour = new DataGridView();
             idTour = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
+            nameTour = new DataGridViewTextBoxColumn();
             price = new DataGridViewTextBoxColumn();
             choose = new DataGridViewCheckBoxColumn();
+            buttonPDF = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvPassenger).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvTour).BeginInit();
             SuspendLayout();
@@ -179,7 +180,7 @@
             cancelButton.BackColor = Color.FromArgb(153, 27, 27);
             cancelButton.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             cancelButton.ForeColor = SystemColors.ButtonHighlight;
-            cancelButton.Location = new Point(645, 507);
+            cancelButton.Location = new Point(737, 507);
             cancelButton.Name = "cancelButton";
             cancelButton.Size = new Size(97, 38);
             cancelButton.TabIndex = 22;
@@ -192,7 +193,7 @@
             saveButton.BackColor = Color.FromArgb(21, 128, 61);
             saveButton.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             saveButton.ForeColor = SystemColors.ButtonHighlight;
-            saveButton.Location = new Point(515, 507);
+            saveButton.Location = new Point(475, 507);
             saveButton.Name = "saveButton";
             saveButton.Size = new Size(96, 38);
             saveButton.TabIndex = 23;
@@ -215,7 +216,7 @@
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
             dgvTour.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dgvTour.ColumnHeadersHeight = 35;
-            dgvTour.Columns.AddRange(new DataGridViewColumn[] { idTour, dataGridViewTextBoxColumn4, price, choose });
+            dgvTour.Columns.AddRange(new DataGridViewColumn[] { idTour, nameTour, price, choose });
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = SystemColors.Window;
             dataGridViewCellStyle4.Font = new Font("Segoe UI", 10F);
@@ -243,12 +244,12 @@
             idTour.Name = "idTour";
             idTour.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn4
+            // nameTour
             // 
-            dataGridViewTextBoxColumn4.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewTextBoxColumn4.DataPropertyName = "Name";
-            dataGridViewTextBoxColumn4.HeaderText = "Name";
-            dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            nameTour.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            nameTour.DataPropertyName = "Name";
+            nameTour.HeaderText = "Name";
+            nameTour.Name = "nameTour";
             // 
             // price
             // 
@@ -260,11 +261,25 @@
             choose.HeaderText = "";
             choose.Name = "choose";
             // 
+            // buttonPDF
+            // 
+            buttonPDF.BackColor = Color.FromArgb(21, 128, 61);
+            buttonPDF.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            buttonPDF.ForeColor = SystemColors.ButtonHighlight;
+            buttonPDF.Location = new Point(604, 507);
+            buttonPDF.Name = "buttonPDF";
+            buttonPDF.Size = new Size(96, 38);
+            buttonPDF.TabIndex = 25;
+            buttonPDF.Text = "PDF";
+            buttonPDF.UseVisualStyleBackColor = false;
+            buttonPDF.Click += buttonPDF_Click;
+            // 
             // AddBillForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(884, 557);
+            Controls.Add(buttonPDF);
             Controls.Add(dgvTour);
             Controls.Add(cancelButton);
             Controls.Add(saveButton);
@@ -302,8 +317,9 @@
         private DataGridViewTextBoxColumn name;
         private DataGridViewCheckBoxColumn join;
         private DataGridViewTextBoxColumn idTour;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private DataGridViewTextBoxColumn nameTour;
         private DataGridViewTextBoxColumn price;
         private DataGridViewCheckBoxColumn choose;
+        private Button buttonPDF;
     }
 }

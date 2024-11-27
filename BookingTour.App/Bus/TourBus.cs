@@ -186,6 +186,10 @@ public class TourBus
     {
         return _unit.Tour.GetToursOfGuide(guideId);
     }
+    public Tour GetToursOfBill(int billId)
+    {
+        return _unit.Tour.GetToursOfBill(billId);
+    }
 
     public Tour GetById(int id)
     {

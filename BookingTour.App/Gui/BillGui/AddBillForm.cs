@@ -1,5 +1,4 @@
-﻿using Blazorise;
-using BookingTour.App.Bus;
+﻿using BookingTour.App.Bus;
 using BookingTour.App.Context;
 using BookingTour.App.Models;
 using Session = BookingTour.App.Context.Session;
@@ -13,19 +12,53 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Reflection.Metadata;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 namespace BookingTour.App.Gui.BillGui;
 public partial class AddBillForm : System.Windows.Forms.Form
 {
     private readonly BillForm _parentForm;
     private readonly int? _billId;
+    private string nameT;
     public AddBillForm(BillForm parentForm, int? billId)
     {
         InitializeComponent();
         _parentForm = parentForm;
         _billId = billId;
         LoadData(null, null);
+        if (_billId != null)
+        {
+            InitData();
+        }
+    }
+    private void InitData()
+    {
+        var bill = BillBus.Instance.GetBillById(_billId!.Value);
+        Tour tour = TourBus.Instance.GetToursOfBill(_billId!.Value);
+        List<Passenger> listpassengers = PassengerBus.Instance.GetPassengersOfBill(_billId!.Value);
+        totalpriceTextbox.Text = bill.TotalPrice.ToString();
+        userIdTextBox.Text = bill.InvoiceIssuer.ToString();
+        foreach (DataGridViewRow row in dgvTour.Rows)
+        {
+            if (Convert.ToInt32(row.Cells["idTour"].Value) == tour.Id)
+            {
+                row.Cells["choose"].Value = true;
+                nameT = Convert.ToString(row.Cells["nameTour"].Value);
+            }
+        }
+        foreach (DataGridViewRow row in dgvPassenger.Rows)
+        {
+            foreach (Passenger passenger in listpassengers)
+            {
+                if (Convert.ToInt32(row.Cells["idKH"].Value) == passenger.Id)
+                {
+                    row.Cells["join"].Value = true;
+                }
+            }
 
+        }
     }
     public void LoadData(ICollection<Passenger>? data, ICollection<Tour>? data1)
     {
@@ -236,6 +269,77 @@ public partial class AddBillForm : System.Windows.Forms.Form
     private void cancelButton_Click(object sender, EventArgs e)
     {
         this.Close();
+    }
+
+    private void buttonPDF_Click(object sender, EventArgs e)
+    {
+        if(_billId!= null)
+        {
+            List<Passenger> selectedPassengers = GetSelectedPassengers();
+            Tour tour = TourBus.Instance.GetById(GetSelectedTour());
+            var bill = BillBus.Instance.GetBillById(_billId!.Value);
+            try
+            {
+                iTextSharp.text.Document document = new iTextSharp.text.Document(PageSize.A4, 25, 25, 30, 30);
+                PdfWriter.GetInstance(document, new FileStream("E:/abc.pdf", FileMode.Create));
+
+                document.Open();
+                // Font định dạng
+                iTextSharp.text.Font headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 16);
+                iTextSharp.text.Font regularFont = FontFactory.GetFont(FontFactory.HELVETICA, 12);
+                iTextSharp.text.Font boldFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12);
+
+                // Thêm tiêu đề hóa đơn
+                document.Add(new Paragraph("--- Bill ---", headerFont) { Alignment = Element.ALIGN_CENTER });
+                document.Add(new Paragraph("\n"));
+
+                // Thông tin hóa đơn
+                document.Add(new Paragraph($"Nguoi Lap: {Session.Get<Models.User>("CurrentUser")?.Name}", regularFont));
+                document.Add(new Paragraph($"Total Passenger: {bill.TotalPassenger}", regularFont));
+                document.Add(new Paragraph($"Total Price: {bill.TotalPrice}", regularFont));
+                document.Add(new Paragraph("-------------------------------------------", regularFont));
+                document.Add(new Paragraph("\n"));
+
+                // Thêm bảng hành khách
+                PdfPTable table = new PdfPTable(3);
+                table.WidthPercentage = 100;
+                table.SetWidths(new float[] { 3, 2, 2 }); // Tỷ lệ các cột
+
+                // Thêm tiêu đề bảng
+                table.AddCell(new PdfPCell(new Phrase("Mã Khách Hàng")) { HorizontalAlignment = Element.ALIGN_CENTER });
+                table.AddCell(new PdfPCell(new Phrase("Tên Khách Hàng")) { HorizontalAlignment = Element.ALIGN_CENTER });
+                table.AddCell(new PdfPCell(new Phrase("Giá vé")) { HorizontalAlignment = Element.ALIGN_CENTER });
+
+                // Thêm dữ liệu vào bảng
+                foreach (Passenger passenger in selectedPassengers)
+                {
+                    table.AddCell($"{passenger.Id}");
+                    table.AddCell($"{passenger.Name}");
+                    table.AddCell($"{tour.Price}");
+                }
+
+                // Thêm bảng vào tài liệu
+                document.Add(table);
+
+                document.Add(new Paragraph("\n-------------------------------------------", regularFont));
+                document.Add(new Paragraph("\n"));
+
+                // Thông tin tour
+                document.Add(new Paragraph($"Tên tour: {nameT}", regularFont));
+                document.Add(new Paragraph($"Ngày khởi hành: {tour.DateStart}", regularFont));
+                document.Add(new Paragraph($"Ngày kết thúc: {tour.DateStart}", regularFont));
+                // Đóng tài liệu
+                document.Close();
+            }
+            catch (PdfException ex)
+            {
+                Console.WriteLine("Error creating PDF: " + ex.Message);
+            }
+        }
+        else
+        {
+            MessageBox.Show("Hóa đơn chưa được lưu trong Database");
+        }
     }
 }
 

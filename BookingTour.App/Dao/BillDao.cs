@@ -27,6 +27,8 @@ public class BillDao
                 }).ToList();
     }
 
+
+
     public int Create(Bill bill)
     {
         const string query = @"
@@ -46,5 +48,28 @@ public class BillDao
 
         // Trả về ID nếu có, hoặc -1 nếu không thành công
         return result != null ? Convert.ToInt32(result) : -1;
+    }
+
+    public Bill GetBillById(int id)
+    {
+        const string query = "SELECT * FROM Bill WHERE Id = @Id";
+
+        var parameters = new MySql.Data.MySqlClient.MySqlParameter[]
+        {
+            new("@Id", id)
+        };
+
+        var result = _dbHelper.ExecuteQuery(query, parameters);
+
+        if (result.Rows.Count == 0)
+            return null;
+
+        var row = result.Rows[0];
+        return new Bill
+        {
+            Id = Convert.ToInt32(row["id"]),
+            TotalPassenger = Convert.ToInt32(row["total_passenger"]),
+            TotalPrice = Convert.ToInt32(row["total_price"]),
+        };
     }
 }

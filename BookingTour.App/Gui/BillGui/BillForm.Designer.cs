@@ -146,6 +146,7 @@
             dgvBill.RowTemplate.Height = 35;
             dgvBill.Size = new Size(1073, 550);
             dgvBill.TabIndex = 10;
+            dgvBill.CellContentClick += dgvBill_CellContentClick_1;
             // 
             // id
             // 

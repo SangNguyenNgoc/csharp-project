@@ -226,4 +226,29 @@ public class TourDao
                 ).ToList();
 
     }
+
+    public Tour GetToursOfBill(int billId)
+    {
+
+        const string query = @"SELECT * FROM bill b join ticket ti on b.id=ti.bill_id join tour t on t.id=ti.tour_id
+                               WHERE b.id =@billId";
+
+        var parameters = new[]
+        {
+            new MySqlParameter("@billId", MySqlDbType.Int32) { Value = billId }
+        };
+        var result = _dbHelper.ExecuteQuery(query, parameters);
+
+        if (result.Rows.Count == 0)
+            return null;
+
+        var row = result.Rows[0];
+        return new Tour
+        {
+            Id = Convert.ToInt32(row["tour_id"]),
+            DateStart = row["date_start"] != DBNull.Value ? DateOnly.FromDateTime(Convert.ToDateTime(row["date_start"])) : (DateOnly?)null,
+            DateEnd = row["date_end"] != DBNull.Value ? DateOnly.FromDateTime(Convert.ToDateTime(row["date_end"])) : (DateOnly?)null,
+        };
+
+    }
 }
