@@ -31,7 +31,7 @@
     <Compile Update="Gui\Place\PlaceForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Gui\Tour\TourForm.cs">
+    <Compile Update="Gui\TourGui\TourForm.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>

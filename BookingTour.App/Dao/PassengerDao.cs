@@ -40,7 +40,6 @@ public class PassengerDao
         const string query = "SELECT * FROM Passenger";
 
         var result = _dbHelper.ExecuteQuery(query);
-
         return (from DataRow row in result.Rows
                 select new Passenger
                 {
@@ -50,6 +49,7 @@ public class PassengerDao
                     PhoneNumber = row["phone_number"].ToString(),
                     Age = Convert.ToInt32(row["age"])
                 }).ToList();
+        
     }
     public int Create(Passenger passenger)
     {

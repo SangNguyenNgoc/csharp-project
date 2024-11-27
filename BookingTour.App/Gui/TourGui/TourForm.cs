@@ -10,8 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BookingTour.App.Gui.Tour
-{
+namespace BookingTour.App.Gui.TourGui;
+
     public partial class TourForm : Form
     {
         public TourForm()
@@ -299,4 +299,4 @@ namespace BookingTour.App.Gui.Tour
             loadTours();
         }
     }
-}
+

@@ -1,4 +1,4 @@
-﻿namespace BookingTour.App.Gui.Bill
+﻿namespace BookingTour.App.Gui.BillGui
 {
     partial class BillForm
     {
@@ -29,7 +29,9 @@
         private void InitializeComponent()
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BillForm));
             titleLabel = new Label();
             searchButton = new FontAwesome.Sharp.IconButton();
             searchTextbox = new TextBox();
@@ -37,9 +39,9 @@
             createBillButton = new FontAwesome.Sharp.IconButton();
             dgvBill = new DataGridView();
             id = new DataGridViewTextBoxColumn();
-            useradd = new DataGridViewTextBoxColumn();
             total_passenger = new DataGridViewTextBoxColumn();
             total_price = new DataGridViewTextBoxColumn();
+            invoice_issuer = new DataGridViewTextBoxColumn();
             action = new DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)dgvBill).BeginInit();
             SuspendLayout();
@@ -112,6 +114,7 @@
             createBillButton.TabIndex = 6;
             createBillButton.Text = "Mới";
             createBillButton.UseVisualStyleBackColor = false;
+            createBillButton.Click += createBillButton_Click;
             // 
             // dgvBill
             // 
@@ -128,22 +131,21 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             dgvBill.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvBill.ColumnHeadersHeight = 35;
-            dgvBill.Columns.AddRange(new DataGridViewColumn[] { id, useradd, total_passenger, total_price, action });
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 10F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dgvBill.DefaultCellStyle = dataGridViewCellStyle2;
+            dgvBill.Columns.AddRange(new DataGridViewColumn[] { id, total_passenger, total_price, invoice_issuer, action });
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Window;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 10F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dgvBill.DefaultCellStyle = dataGridViewCellStyle3;
             dgvBill.Location = new Point(12, 44);
             dgvBill.Name = "dgvBill";
             dgvBill.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dgvBill.RowTemplate.Height = 35;
             dgvBill.Size = new Size(1073, 550);
-            dgvBill.TabIndex = 9;
-            dgvBill.CellContentClick += dgvBill_CellContentClick;
+            dgvBill.TabIndex = 10;
             // 
             // id
             // 
@@ -154,40 +156,47 @@
             id.Name = "id";
             id.ReadOnly = true;
             // 
-            // useradd
-            // 
-            useradd.HeaderText = "Người Tạo";
-            useradd.Name = "useradd";
-            useradd.Width = 300;
-            // 
             // total_passenger
             // 
-            total_passenger.HeaderText = "Tổng hành khách";
+            total_passenger.HeaderText = "Tổng Khách Hàng";
             total_passenger.Name = "total_passenger";
-            total_passenger.Width = 300;
+            total_passenger.Width = 200;
             // 
             // total_price
             // 
             total_price.HeaderText = "Tổng tiền";
             total_price.Name = "total_price";
-            total_price.Width = 300;
+            total_price.Width = 200;
+            // 
+            // invoice_issuer
+            // 
+            invoice_issuer.HeaderText = "Người xuất";
+            invoice_issuer.Name = "invoice_issuer";
+            invoice_issuer.Width = 300;
             // 
             // action
             // 
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.NullValue = resources.GetObject("dataGridViewCellStyle2.NullValue");
+            dataGridViewCellStyle2.Padding = new Padding(8);
+            action.DefaultCellStyle = dataGridViewCellStyle2;
             action.HeaderText = "";
+            action.Image = (Image)resources.GetObject("action.Image");
+            action.ImageLayout = DataGridViewImageCellLayout.Zoom;
             action.Name = "action";
+            action.Resizable = DataGridViewTriState.True;
             // 
             // BillForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1101, 603);
+            Controls.Add(dgvBill);
             Controls.Add(searchButton);
             Controls.Add(searchTextbox);
             Controls.Add(refershButton);
             Controls.Add(createBillButton);
             Controls.Add(titleLabel);
-            Controls.Add(dgvBill);
             Name = "BillForm";
             Text = "BillForm";
             ((System.ComponentModel.ISupportInitialize)dgvBill).EndInit();
@@ -204,9 +213,9 @@
         private FontAwesome.Sharp.IconButton createBillButton;
         private DataGridView dgvBill;
         private DataGridViewTextBoxColumn id;
-        private DataGridViewTextBoxColumn useradd;
         private DataGridViewTextBoxColumn total_passenger;
         private DataGridViewTextBoxColumn total_price;
+        private DataGridViewTextBoxColumn invoice_issuer;
         private DataGridViewImageColumn action;
     }
 }

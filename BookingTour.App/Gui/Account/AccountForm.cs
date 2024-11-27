@@ -138,7 +138,7 @@ public partial class AccountForm : Form
 
     private void searchButton_Click(object sender, EventArgs e)
     {
-        var keywords = searchTextbox.Text.Trim().ToLower(); 
+        var keywords = searchTextbox.Text.Trim().ToLower();
         var keywordList = keywords.Split(' ');
         var filteredData = UserBus.Instance.GetAllUsers().Where(user =>
             keywordList.All(keyword =>
@@ -157,5 +157,10 @@ public partial class AccountForm : Form
     private void refreshButton_Click(object sender, EventArgs e)
     {
         LoadUserData(null);
+    }
+
+    private void titleLabel_Click(object sender, EventArgs e)
+    {
+
     }
 }

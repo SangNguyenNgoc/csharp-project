@@ -1,10 +1,10 @@
 ﻿using BookingTour.App.Gui.Account;
-using BookingTour.App.Gui.Bill;
+using BookingTour.App.Gui.BillGui;
 using FontAwesome.Sharp;
 using BookingTour.App.Models;
 using Session = BookingTour.App.Context.Session;
 using BookingTour.App.Gui.Place;
-using BookingTour.App.Gui.Tour;
+using BookingTour.App.Gui.TourGui;
 using BookingTour.App.Gui.PassengerGui;
 
 namespace BookingTour.App.Gui;

@@ -202,4 +202,28 @@ public class TourDao
 
         return Convert.ToInt32(_dbHelper.ExecuteScalar(query));
     }
+
+    public ICollection<Tour> GetAllForBill()
+    {
+
+        const string query = @"
+            SELECT t.id, t.date_start, t.date_end, t.price, t.capacity, t.remaining_slots,t.itinerary_id, i.name
+            FROM tour t
+            JOIN itinerary i ON t.itinerary_id = i.id
+            where t.remaining_slots>0";
+        var result = _dbHelper.ExecuteQuery(query);
+        return (from DataRow row in result.Rows
+                select new Tour
+                {
+                    Id = Convert.ToInt32(row["id"]),
+                    Price = row["price"] != DBNull.Value ? Convert.ToInt32(row["price"]) : 0,
+                    Capacity = row["capacity"] != DBNull.Value ? Convert.ToInt32(row["capacity"]) : 0,
+                    RemainingSlots = row["remaining_slots"] != DBNull.Value ? Convert.ToInt32(row["remaining_slots"]) : 0,
+                    DateStart = row["date_start"] != DBNull.Value ? DateOnly.FromDateTime(Convert.ToDateTime(row["date_start"])) : (DateOnly?)null,
+                    DateEnd = row["date_end"] != DBNull.Value ? DateOnly.FromDateTime(Convert.ToDateTime(row["date_end"])) : (DateOnly?)null,
+                    Itinerary = ItineraryDao.Instance.GetItineraryById(Convert.ToInt32(row["itinerary_id"]))
+                }
+                ).ToList();
+
+    }
 }

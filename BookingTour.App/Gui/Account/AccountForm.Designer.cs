@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AccountForm));
             dataGridView1 = new DataGridView();
             id = new DataGridViewTextBoxColumn();
@@ -55,24 +55,24 @@
             dataGridView1.BackgroundColor = Color.FromArgb(244, 243, 247);
             dataGridView1.BorderStyle = BorderStyle.None;
             dataGridView1.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = SystemColors.Control;
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.ColumnHeadersHeight = 35;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { id, username, name, email, phoneNumber, isBlock, role, action });
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = SystemColors.Window;
-            dataGridViewCellStyle6.Font = new Font("Segoe UI", 10F);
-            dataGridViewCellStyle6.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
-            dataGridView1.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Window;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 10F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
             dataGridView1.Location = new Point(12, 55);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
@@ -139,10 +139,10 @@
             // 
             // action
             // 
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.NullValue = resources.GetObject("dataGridViewCellStyle5.NullValue");
-            dataGridViewCellStyle5.Padding = new Padding(8);
-            action.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.NullValue = resources.GetObject("dataGridViewCellStyle2.NullValue");
+            dataGridViewCellStyle2.Padding = new Padding(8);
+            action.DefaultCellStyle = dataGridViewCellStyle2;
             action.HeaderText = "";
             action.Image = (Image)resources.GetObject("action.Image");
             action.ImageLayout = DataGridViewImageCellLayout.Zoom;
@@ -177,6 +177,7 @@
             titleLabel.Size = new Size(173, 18);
             titleLabel.TabIndex = 2;
             titleLabel.Text = "Danh sách tài khoản";
+            titleLabel.Click += titleLabel_Click;
             // 
             // searchTextbox
             // 

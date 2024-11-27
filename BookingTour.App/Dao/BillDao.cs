@@ -26,4 +26,25 @@ public class BillDao
                     InvoiceIssuerNavigation = UserDao.Instance.GetById(Convert.ToInt32(row["invoice_issuer"])) // lấy User tương ứng
                 }).ToList();
     }
+
+    public int Create(Bill bill)
+    {
+        const string query = @"
+        INSERT INTO bill (total_passenger, total_price, invoice_issuer)
+        VALUES (@TotalPassenger, @TotalPrice, @InvoiceIssuer);
+        SELECT LAST_INSERT_ID();";  // Trả về ID của bản ghi vừa chèn
+
+        var parameters = new MySql.Data.MySqlClient.MySqlParameter[]
+        {
+        new("@TotalPassenger", bill.TotalPassenger),
+        new("@TotalPrice", bill.TotalPrice),
+        new("@InvoiceIssuer", bill.InvoiceIssuer)
+        };
+
+        // Thực hiện câu lệnh và lấy ID vừa tạo
+        object result = _dbHelper.ExecuteScalar(query, parameters);
+
+        // Trả về ID nếu có, hoặc -1 nếu không thành công
+        return result != null ? Convert.ToInt32(result) : -1;
+    }
 }

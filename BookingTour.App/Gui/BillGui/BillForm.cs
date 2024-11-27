@@ -10,43 +10,49 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BookingTour.App.Gui.Bill;
+namespace BookingTour.App.Gui.BillGui;
 using BookingTour.App.Models;
 public partial class BillForm : Form
+{
+    public BillForm()
     {
-        public BillForm()
-        {
-            InitializeComponent();
-            LoadBillData(null);
-        }
+        InitializeComponent();
+        LoadBillData(null);
+    }
 
-        public void LoadBillData(ICollection<Bill>? data)
+    public void LoadBillData(ICollection<Bill>? data)
+    {
+        dgvBill.Rows.Clear();
+        try
         {
-            dgvBill.Rows.Clear();
-            try
-            {
-                data ??= BillBus.Instance.GetAllBills();
+            data ??= BillBus.Instance.GetAllBills();
 
-                foreach (var bill in data)
-                {
-                    dgvBill.Rows.Add(
-                        bill.Id,
-                        bill.TotalPassenger,
-                        bill.TotalPrice,
-                        bill.InvoiceIssuerNavigation.Name
-                    );
-                }
-            }
-            catch (System.Exception ex)
+            foreach (var bill in data)
             {
-                // Hiển thị lỗi nếu có
-                MessageBox.Show($@"Lỗi khi tải dữ liệu: {ex.Message}", @"Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                dgvBill.Rows.Add(
+                    bill.Id,
+                    bill.TotalPassenger,
+                    bill.TotalPrice,
+                    bill.InvoiceIssuerNavigation.Name
+                );
             }
         }
-
-        private void dgvBill_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        catch (System.Exception ex)
         {
-
+            // Hiển thị lỗi nếu có
+            MessageBox.Show($@"Lỗi khi tải dữ liệu: {ex.Message}", @"Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
+
+    private void dgvBill_CellContentClick(object sender, DataGridViewCellEventArgs e)
+    {
+
+    }
+
+    private void createBillButton_Click(object sender, EventArgs e)
+    {
+        AddBillForm abf = new AddBillForm(this,null);
+        abf.Show();
+    }
+}
 

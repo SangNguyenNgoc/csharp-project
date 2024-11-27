@@ -13,4 +13,9 @@ public class BillBus
     {
         return _unit.Bill.GetAll();
     }
+
+    public int CreateBill(Bill bill)
+    {
+        return _unit.Bill.Create(bill);
+    }
 }
