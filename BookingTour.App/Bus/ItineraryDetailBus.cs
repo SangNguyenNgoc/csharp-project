@@ -113,4 +113,9 @@ public class ItineraryDetailBus
     {
         return _unit.ItineraryDetail.GetItineraryDetailsOfTour(tourId);
     }
+
+    public List<ItineraryDetail> GetItineraryDetailsOfItinerary(int id)
+    {
+        return _unit.ItineraryDetail.GetItineraryDetailsByItineraryId(id);
+    }
 }

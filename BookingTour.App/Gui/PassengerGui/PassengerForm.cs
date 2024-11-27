@@ -12,6 +12,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BookingTour.App.Gui.Utils;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace BookingTour.App.Gui.PassengerGui;
@@ -22,6 +23,7 @@ public partial class PassengerForm : Form
     {
         InitializeComponent();
         LoadPassengerData(null);
+        GuiUtils.ScaleControls(this, GuiUtils.GetScaleInScreen(this));
     }
 
     public void LoadPassengerData(ICollection<Passenger>? data)

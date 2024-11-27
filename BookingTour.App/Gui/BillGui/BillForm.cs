@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BookingTour.App.Gui.Utils;
 
 namespace BookingTour.App.Gui.BillGui;
 
@@ -20,6 +21,7 @@ public partial class BillForm : Form
     {
         InitializeComponent();
         LoadBillData(null);
+        GuiUtils.ScaleControls(this, GuiUtils.GetScaleInScreen(this));
     }
 
     public void LoadBillData(ICollection<Bill>? data)

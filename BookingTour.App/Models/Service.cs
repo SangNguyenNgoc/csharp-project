@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace BookingTour.App.Models;
 
-namespace BookingTour.App.Models;
-
-public partial class Service
+public class Service
 {
     public int Id { get; set; }
 
@@ -13,5 +10,5 @@ public partial class Service
 
     public string? Description { get; set; }
 
-    public virtual ICollection<ItineraryDetail> ItineraryDetails { get; set; } = new List<ItineraryDetail>();
+    public virtual ICollection<ItineraryDetail>? ItineraryDetails { get; set; } = new List<ItineraryDetail>();
 }

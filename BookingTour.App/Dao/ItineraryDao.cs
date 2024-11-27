@@ -15,7 +15,7 @@ public class ItineraryDao
     public int AddItinerary(Itinerary itinerary)
     {
         const string query = @"
-            INSERT INTO itinerary (name, numberOfDays, vehicle, description, capacity) 
+            INSERT INTO itinerary (name, number_of_days, vehicle, description, capacity) 
             VALUES (@Name, @NumberOfDays, @Vehicle, @Description, @Capacity)";
 
         var parameters = new[]

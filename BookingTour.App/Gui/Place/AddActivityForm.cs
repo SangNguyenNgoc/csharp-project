@@ -1,13 +1,5 @@
 ﻿using BookingTour.App.Bus;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using BookingTour.App.Gui.Utils;
 
 namespace BookingTour.App.Gui.Place;
 
@@ -19,18 +11,17 @@ public partial class AddActivityForm : Form
     public AddActivityForm(int? activityId)
     {
         InitializeComponent();
-
-        this.Text = "Thêm hoạt động";
+        Text = @"Thêm hoạt động";
 
         // Tạo giao diện
-        var nameLabel = new Label { Text = "Tên hoạt động:", Top = 20, Left = 20, AutoSize = true };
+        var nameLabel = new Label { Text = @"Tên hoạt động:", Top = 20, Left = 20, AutoSize = true };
         var nameTextBox = new TextBox { Top = 50, Left = 20, Width = 300 };
 
-        var descriptionLabel = new Label { Text = "Mô tả hoạt động:", Top = 90, Left = 20, AutoSize = true };
+        var descriptionLabel = new Label { Text = @"Mô tả hoạt động:", Top = 90, Left = 20, AutoSize = true };
         var descriptionTextBox = new TextBox { Top = 120, Left = 20, Width = 300, Height = 100, Multiline = true };
 
-        var okButton = new Button { Text = "Đồng ý", Top = 240, Left = 20, Width = 100 };
-        var cancelButton = new Button { Text = "Hủy", Top = 240, Left = 140, Width = 100 };
+        var okButton = new Button { Text = @"Đồng ý", Top = 240, Left = 20, Width = 100 };
+        var cancelButton = new Button { Text = @"Hủy", Top = 240, Left = 140, Width = 100 };
 
         if(activityId != null)
         {
@@ -49,53 +40,84 @@ public partial class AddActivityForm : Form
             // Kiểm tra đầu vào
             if (string.IsNullOrWhiteSpace(ActivityName))
             {
-                MessageBox.Show("Tên hoạt động không được để trống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(@"Tên hoạt động không được để trống!", @"Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 nameTextBox.Focus();
                 return;
             }
 
             if (ActivityName.Length > 50)
             {
-                MessageBox.Show("Tên hoạt động không được vượt quá 50 ký tự!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(@"Tên hoạt động không được vượt quá 50 ký tự!", @"Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 nameTextBox.Focus();
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(ActivityDescription))
             {
-                MessageBox.Show("Mô tả hoạt động không được để trống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(@"Mô tả hoạt động không được để trống!", @"Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 descriptionTextBox.Focus();
                 return;
             }
 
             if (ActivityDescription.Length > 500)
             {
-                MessageBox.Show("Mô tả hoạt động không được vượt quá 500 ký tự!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(@"Mô tả hoạt động không được vượt quá 500 ký tự!", @"Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 descriptionTextBox.Focus();
                 return;
             }
 
             // Dữ liệu hợp lệ
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            DialogResult = DialogResult.OK;
+            Close();
         };
 
         // Xử lý khi nhấn nút Hủy
         cancelButton.Click += (sender, e) =>
         {
-            this.DialogResult = DialogResult.Cancel;
-            this.Close();
+            DialogResult = DialogResult.Cancel;
+            Close();
         };
 
-        this.Controls.Add(nameLabel);
-        this.Controls.Add(nameTextBox);
-        this.Controls.Add(descriptionLabel);
-        this.Controls.Add(descriptionTextBox);
-        this.Controls.Add(okButton);
-        this.Controls.Add(cancelButton);
+        Controls.Add(nameLabel);
+        Controls.Add(nameTextBox);
+        Controls.Add(descriptionLabel);
+        Controls.Add(descriptionTextBox);
+        Controls.Add(okButton);
+        Controls.Add(cancelButton);
 
-        this.Size = new Size(400, 350);
-        this.StartPosition = FormStartPosition.CenterParent;
+        var scaleFactor = GuiUtils.GetScaleInScreen(this);
+        Size = new Size((int)(500 * scaleFactor),(int) (400 * scaleFactor));        
+        ScaleControls(this, scaleFactor);
+        StartPosition = FormStartPosition.CenterParent;
+    }
+    
+    private void ScaleControls(Control parent, float scaleFactor)
+    {
+        foreach (Control control in parent.Controls)
+        {
+            // Điều chỉnh kích thước và vị trí
+            control.Width = (int)(control.Width * scaleFactor);
+            control.Height = (int)(control.Height * scaleFactor);
+            control.Location = new Point((int)(control.Location.X * scaleFactor),
+                (int)(control.Location.Y * scaleFactor));
+
+
+            if (control is FontAwesome.Sharp.IconButton iconButton)
+            {
+                iconButton.IconSize = (int)(iconButton.IconSize * scaleFactor);
+            }
+
+            // Nếu control có children, gọi đệ quy
+            if (control.HasChildren)
+            {
+                ScaleControls(control, scaleFactor);
+            }
+        }
     }
 
+    public sealed override string Text
+    {
+        get => base.Text;
+        set => base.Text = value;
+    }
 }

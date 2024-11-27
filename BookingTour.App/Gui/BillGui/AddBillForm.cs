@@ -36,8 +36,8 @@ public partial class AddBillForm : System.Windows.Forms.Form
     private void InitData()
     {
         var bill = BillBus.Instance.GetBillById(_billId!.Value);
-        Tour tour = TourBus.Instance.GetToursOfBill(_billId!.Value);
-        List<Passenger> listpassengers = PassengerBus.Instance.GetPassengersOfBill(_billId!.Value);
+        var tour = TourBus.Instance.GetToursOfBill(_billId!.Value);
+        var listpassengers = PassengerBus.Instance.GetPassengersOfBill(_billId!.Value);
         totalpriceTextbox.Text = bill.TotalPrice.ToString();
         userIdTextBox.Text = bill.InvoiceIssuer.ToString();
         foreach (DataGridViewRow row in dgvTour.Rows)
@@ -60,7 +60,7 @@ public partial class AddBillForm : System.Windows.Forms.Form
 
         }
     }
-    public void LoadData(ICollection<Passenger>? data, ICollection<Tour>? data1)
+    public void LoadData(ICollection<Passenger>? data, ICollection<Models.Tour>? data1)
     {
         dgvPassenger.Rows.Clear();
         try
@@ -192,7 +192,7 @@ public partial class AddBillForm : System.Windows.Forms.Form
     private void saveButton_Click(object sender, EventArgs e)
     {
         List<Passenger> selectedPassengers = GetSelectedPassengers();
-        Tour tour = TourBus.Instance.GetById(GetSelectedTour());
+        Models.Tour tour = TourBus.Instance.GetById(GetSelectedTour());
         Bill bill = new Bill
         {
             TotalPassenger = selectedPassengers.Count,
@@ -253,7 +253,7 @@ public partial class AddBillForm : System.Windows.Forms.Form
             // Kiểm tra xem khách hàng có được chọn không (checkbox "join")
             if (Convert.ToBoolean(row.Cells["choose"].Value) == true)
             {
-                Tour tour = new Tour
+                Models.Tour tour = new Models.Tour
                 {
                     Id = Convert.ToInt32(row.Cells["idTour"].Value),
                     Price = Convert.ToInt32(row.Cells["price"].Value),
@@ -276,7 +276,7 @@ public partial class AddBillForm : System.Windows.Forms.Form
         if(_billId!= null)
         {
             List<Passenger> selectedPassengers = GetSelectedPassengers();
-            Tour tour = TourBus.Instance.GetById(GetSelectedTour());
+            Models.Tour tour = TourBus.Instance.GetById(GetSelectedTour());
             var bill = BillBus.Instance.GetBillById(_billId!.Value);
             try
             {

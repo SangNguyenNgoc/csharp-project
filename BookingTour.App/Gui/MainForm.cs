@@ -1,9 +1,13 @@
 ﻿using BookingTour.App.Gui.Account;
+using BookingTour.App.Gui.Itinerary;
 using BookingTour.App.Gui.BillGui;
 using FontAwesome.Sharp;
 using BookingTour.App.Models;
 using Session = BookingTour.App.Context.Session;
 using BookingTour.App.Gui.Place;
+using BookingTour.App.Gui.Service;
+using BookingTour.App.Gui.Utils;
+using BookingTour.App.Gui.Tour;
 using BookingTour.App.Gui.TourGui;
 using BookingTour.App.Gui.PassengerGui;
 
@@ -14,7 +18,7 @@ public partial class MainForm : Form
 
     private IconButton? _currentButton;
     private readonly Panel _leftBorderBtn;
-    private Form CurrentChildForm;
+    private Form? _currentChildForm;
 
     public MainForm()
     {
@@ -97,8 +101,8 @@ public partial class MainForm : Form
 
     private void OpenChildRorm(Form form)
     {
-        CurrentChildForm?.Close();
-        CurrentChildForm = form;
+        _currentChildForm?.Close();
+        _currentChildForm = form;
         form.TopLevel = false;
         form.FormBorderStyle = FormBorderStyle.None;
         form.Dock = DockStyle.Fill;
@@ -129,11 +133,13 @@ public partial class MainForm : Form
     private void iconButtonSchedule_Click(object sender, EventArgs e)
     {
         ActiveButton(sender);
+        OpenChildRorm(new ItineraryForm());
     }
 
     private void iconButtonService_Click(object sender, EventArgs e)
     {
         ActiveButton(sender);
+        OpenChildRorm(new ServiceForm());
     }
 
     private void iconButtonLocation_Click(object sender, EventArgs e)
@@ -148,19 +154,10 @@ public partial class MainForm : Form
         OpenChildRorm(new AccountForm());
     }
 
-    private void panelMenu_Paint(object sender, PaintEventArgs e)
-    {
-
-    }
-
     private void MainForm_Load(object sender, EventArgs e)
     {
-        using var g = this.CreateGraphics();
-        var dpiX = g.DpiX;  // Lấy DPI của màn hình hiện tại
-        var scaleFactor = dpiX / 96.0f; // Tính tỷ lệ so với DPI chuẩn (96 DPI)
-
+        var scaleFactor = GuiUtils.GetScaleInScreen(this);
         ScaleControls(this, scaleFactor);
-
         accountButton.Text = Session.Get<User>("CurrentUser")?.Name;
     }
 
