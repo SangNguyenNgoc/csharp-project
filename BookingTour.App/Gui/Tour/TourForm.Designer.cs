@@ -81,6 +81,11 @@
             // 
             // tourGridView
             // 
+            tourGridView.AllowUserToAddRows = false;
+            tourGridView.AllowUserToDeleteRows = false;
+            tourGridView.BackgroundColor = SystemColors.ControlLightLight;
+            tourGridView.BorderStyle = BorderStyle.None;
+            tourGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             tourGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tourGridView.Columns.AddRange(new DataGridViewColumn[] { ID, Itenerary, startDate, endDate, price, capacity, remainingSlots });
             tourGridView.Dock = DockStyle.Fill;
@@ -140,41 +145,37 @@
             // 
             // priceFilterCbb
             // 
-            priceFilterCbb.Dock = DockStyle.Left;
             priceFilterCbb.FormattingEnabled = true;
-            priceFilterCbb.Location = new Point(494, 20);
+            priceFilterCbb.Location = new Point(455, 12);
             priceFilterCbb.Margin = new Padding(20);
             priceFilterCbb.Name = "priceFilterCbb";
-            priceFilterCbb.Size = new Size(88, 23);
+            priceFilterCbb.Size = new Size(104, 23);
             priceFilterCbb.TabIndex = 3;
             priceFilterCbb.SelectedIndexChanged += priceFilterCbb_SelectedIndexChanged;
             // 
             // endDatePicker
             // 
-            endDatePicker.Dock = DockStyle.Left;
-            endDatePicker.Location = new Point(333, 20);
+            endDatePicker.Location = new Point(338, 12);
             endDatePicker.Margin = new Padding(20, 0, 0, 0);
             endDatePicker.Name = "endDatePicker";
-            endDatePicker.Size = new Size(161, 23);
+            endDatePicker.Size = new Size(107, 23);
             endDatePicker.TabIndex = 2;
             endDatePicker.ValueChanged += endDatePicker_ValueChanged;
             // 
             // startDateFilter
             // 
-            startDateFilter.Dock = DockStyle.Left;
-            startDateFilter.Location = new Point(191, 20);
+            startDateFilter.Location = new Point(211, 12);
             startDateFilter.Margin = new Padding(20, 0, 0, 0);
             startDateFilter.Name = "startDateFilter";
-            startDateFilter.Size = new Size(142, 23);
+            startDateFilter.Size = new Size(117, 23);
             startDateFilter.TabIndex = 1;
             startDateFilter.ValueChanged += startDateFilter_ValueChanged;
             // 
             // searchField
             // 
-            searchField.Dock = DockStyle.Left;
-            searchField.Location = new Point(20, 20);
+            searchField.Location = new Point(20, 12);
             searchField.Name = "searchField";
-            searchField.Size = new Size(171, 23);
+            searchField.Size = new Size(180, 23);
             searchField.TabIndex = 0;
             searchField.KeyDown += searchField_KeyDown;
             // 
@@ -200,6 +201,10 @@
             // 
             // typeDetailGridView
             // 
+            typeDetailGridView.AllowUserToAddRows = false;
+            typeDetailGridView.BackgroundColor = SystemColors.ButtonHighlight;
+            typeDetailGridView.BorderStyle = BorderStyle.None;
+            typeDetailGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             typeDetailGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             typeDetailGridView.Dock = DockStyle.Fill;
             typeDetailGridView.Location = new Point(20, 0);
