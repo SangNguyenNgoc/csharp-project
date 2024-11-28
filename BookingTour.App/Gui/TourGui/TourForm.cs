@@ -254,18 +254,18 @@ namespace BookingTour.App.Gui.TourGui;
             {
                 DataGridViewRow selectedRow = tourGridView.CurrentRow;
 
-                var tourId = selectedRow.Cells["Id"].Value;
+                int tourId = Convert.ToInt32(selectedRow.Cells["Id"].Value);
 
                 switch (getSelectedTypeDetailIndex())
                 {
                     case 0:
-                        loadItineratyDetails((int)tourId);
+                        loadItineratyDetails(tourId);
                         break;
                     case 1:
-                        loadPassengers((int)tourId);
+                        loadPassengers(tourId);
                         break;
                     case 2:
-                        loadTourGuides((int)tourId);
+                        loadTourGuides(tourId);
                         break;
                 }
             }
