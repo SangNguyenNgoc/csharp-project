@@ -1,4 +1,4 @@
-﻿namespace BookingTour.App.Gui.Tour
+﻿namespace BookingTour.App.Gui.TourGui
 {
     partial class TourForm
     {

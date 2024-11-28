@@ -148,4 +148,55 @@ public class ItineraryDetailDao
                 EndTime = reader.IsDBNull("end_time") ? null : TimeOnly.FromTimeSpan(reader.GetTimeSpan("end_time"))
             }, parameters.ToArray());
     }
+    
+    public List<ItineraryDetail> GetItineraryDetailsByItineraryId(int itineraryId)
+    {
+        const string query = @"SELECT itd.tour_interface_id tour_interface_id, it.name itinerary_name, itd.day_number day_number,
+        ac.id activity_id,
+        ac.name activity_name, 
+        pl.id place_id,
+        pl.name place_name, 
+        sv.id service_id,
+        sv.name service_name, 
+        itd.start_time start_time, 
+        itd.end_time end_time 
+        FROM itinerary_detail itd
+        JOIN activity ac ON itd.activity_id = ac.id
+        JOIN place pl ON ac.place_id = pl.id
+        JOIN service sv ON itd.service_id = sv.id
+        JOIN itinerary it ON itd.tour_interface_id = it.id
+        WHERE it.id = @itineraryId";
+
+        var parameters = new[]
+        {
+            new MySqlParameter("@itineraryId", itineraryId)
+        };
+
+        return _dbHelper.ExecuteQueryToEntities(query, reader =>
+            new ItineraryDetail
+            {
+                TourInterfaceId = reader.GetInt32("tour_interface_id"),
+                ActivityId = reader.GetInt32("activity_id"),
+                Activity = new Activity
+                {
+                    Id = reader.GetInt32("activity_id"),
+                    Name = reader.GetString("activity_name"),
+                    Place = new Place
+                    {
+                        Id = reader.GetInt32("place_id"),
+                        Name = reader.GetString("place_name")
+                    }
+                },
+                ServiceId = reader.GetInt32("service_id"),
+                Service = new Service
+                {
+                    Id = reader.GetInt32("service_id"),
+                    Name = reader.GetString("service_name")
+                },
+                DayNumber = reader.GetInt32("day_number"),
+                StartTime = reader.IsDBNull("start_time") ? null : TimeOnly.FromTimeSpan(reader.GetTimeSpan("start_time")),
+                EndTime = reader.IsDBNull("end_time") ? null : TimeOnly.FromTimeSpan(reader.GetTimeSpan("end_time"))
+            }, parameters.ToArray());
+    }
+
 }

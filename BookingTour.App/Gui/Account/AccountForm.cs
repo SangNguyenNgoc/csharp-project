@@ -1,4 +1,5 @@
 ﻿using BookingTour.App.Bus;
+using BookingTour.App.Gui.Utils;
 using BookingTour.App.Models;
 
 namespace BookingTour.App.Gui.Account;
@@ -13,10 +14,7 @@ public partial class AccountForm : Form
 
     private void AccountForm_Load(object sender, EventArgs e)
     {
-        using var g = this.CreateGraphics();
-        var dpiX = g.DpiX;  // Lấy DPI của màn hình hiện tại
-        var scaleFactor = dpiX / 96.0f; // Tính tỷ lệ so với DPI chuẩn (96 DPI)
-
+        var scaleFactor = GuiUtils.GetScaleInScreen(this);
         ScaleControls(this, scaleFactor);
     }
 
@@ -24,25 +22,49 @@ public partial class AccountForm : Form
     {
         foreach (Control control in parent.Controls)
         {
-            // Điều chỉnh kích thước và vị trí
-            control.Width = (int)(control.Width * scaleFactor);
-            control.Height = (int)(control.Height * scaleFactor);
-            control.Location = new Point((int)(control.Location.X * scaleFactor),
-                (int)(control.Location.Y * scaleFactor));
-
-
+            // // Điều chỉnh kích thước và vị trí của control
+            // control.Width = (int)(control.Width * scaleFactor);
+            // control.Height = (int)(control.Height * scaleFactor);
+            // control.Location = new Point((int)(control.Location.X * scaleFactor),
+            //     (int)(control.Location.Y * scaleFactor));
+            //
+            // Điều chỉnh riêng cho DataGridView
+            if (control is DataGridView dataGridView)
+            {
+                // Scale font chữ
+                dataGridView.Font = new Font(dataGridView.Font.FontFamily, dataGridView.Font.Size * scaleFactor);
+        
+                // Scale kích thước các hàng
+                foreach (DataGridViewRow row in dataGridView.Rows)
+                {
+                    row.Height = (int)(row.Height * scaleFactor);
+                }
+        
+                // // Scale kích thước các cột
+                // foreach (DataGridViewColumn column in dataGridView.Columns)
+                // {
+                //     column.Width = (int)(column.Width * scaleFactor);
+                // }
+        
+                // Scale kích thước header
+                dataGridView.ColumnHeadersHeight = (int)(dataGridView.ColumnHeadersHeight * scaleFactor);
+                // dataGridView.RowHeadersWidth = (int)(dataGridView.RowHeadersWidth * scaleFactor);
+            }
+        
+            // Điều chỉnh kích thước IconButton nếu cần
             if (control is FontAwesome.Sharp.IconButton iconButton)
             {
                 iconButton.IconSize = (int)(iconButton.IconSize * scaleFactor);
             }
-
-            // Nếu control có children, gọi đệ quy
+        
+            // Nếu control có các con (children), gọi đệ quy
             if (control.HasChildren)
             {
                 ScaleControls(control, scaleFactor);
             }
         }
     }
+
 
     public void LoadUserData(ICollection<User>? data)
     {
@@ -138,7 +160,7 @@ public partial class AccountForm : Form
 
     private void searchButton_Click(object sender, EventArgs e)
     {
-        var keywords = searchTextbox.Text.Trim().ToLower(); 
+        var keywords = searchTextbox.Text.Trim().ToLower();
         var keywordList = keywords.Split(' ');
         var filteredData = UserBus.Instance.GetAllUsers().Where(user =>
             keywordList.All(keyword =>
@@ -157,5 +179,19 @@ public partial class AccountForm : Form
     private void refreshButton_Click(object sender, EventArgs e)
     {
         LoadUserData(null);
+        var scaleFactor = GuiUtils.GetScaleInScreen(this);
+        dataGridView1.Font = new Font(dataGridView1.Font.FontFamily, dataGridView1.Font.Size * scaleFactor);
+        
+        // Scale kích thước các hàng
+        foreach (DataGridViewRow row in dataGridView1.Rows)
+        {
+            
+            row.Height = (int)(row.Height * scaleFactor);
+        }
+    }
+
+    private void titleLabel_Click(object sender, EventArgs e)
+    {
+
     }
 }

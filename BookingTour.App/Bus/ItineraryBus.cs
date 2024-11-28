@@ -86,4 +86,31 @@ public class ItineraryBus
         
         return result == 0 ? null : itinerary;
     }
+    
+    // Hàm lấy tất cả Itineraries
+    public List<Itinerary> GetAllItineraries()
+    {
+        var itineraries = _unit.Itinerary.GetAllItineraries();
+        if (itineraries.Count == 0)
+        {
+            Console.WriteLine(@"Không có Itineraries nào được tìm thấy.");
+        }
+
+        return itineraries;
+    }
+
+    // Hàm lấy Itinerary theo Id
+    public Itinerary? GetItineraryById(int id)
+    {
+        if (id <= 0)
+        {
+            throw new ArgumentException("ID không hợp lệ. ID phải lớn hơn 0.");
+        }
+        var itinerary = _unit.Itinerary.GetItineraryById(id);
+        if (itinerary == null)
+        {
+            Console.WriteLine($@"Không tìm thấy Itinerary với ID: {id}");
+        }
+        return itinerary;
+    }
 }

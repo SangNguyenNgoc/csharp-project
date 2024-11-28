@@ -16,6 +16,11 @@ public class PassengerBus
         return _unit.Passenger.GetPassengersOfTour(tourId);
     }
 
+    public List<Passenger> GetPassengersOfBill(int billId)
+    {
+        return _unit.Passenger.GetPassengersOfBill(billId);
+    }
+
     public ICollection<Passenger> GetAllPassengers()
     {
         return _unit.Passenger.GetAll();

@@ -36,16 +36,15 @@
             searchButton = new FontAwesome.Sharp.IconButton();
             searchTextbox = new TextBox();
             refershButton = new FontAwesome.Sharp.IconButton();
-            createPassengerButton = new FontAwesome.Sharp.IconButton();
             dgvPassenger = new DataGridView();
+            ImportExcel = new FontAwesome.Sharp.IconButton();
+            ExportExcel = new FontAwesome.Sharp.IconButton();
             id = new DataGridViewTextBoxColumn();
             name = new DataGridViewTextBoxColumn();
             email = new DataGridViewTextBoxColumn();
             phoneNumber = new DataGridViewTextBoxColumn();
             age = new DataGridViewTextBoxColumn();
             action = new DataGridViewImageColumn();
-            ImportExcel = new FontAwesome.Sharp.IconButton();
-            ExportExcel = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)dgvPassenger).BeginInit();
             SuspendLayout();
             // 
@@ -101,24 +100,6 @@
             refershButton.Text = "Làm mới";
             refershButton.UseVisualStyleBackColor = false;
             // 
-            // createPassengerButton
-            // 
-            createPassengerButton.BackColor = Color.FromArgb(21, 128, 61);
-            createPassengerButton.FlatAppearance.BorderColor = Color.FromArgb(21, 128, 61);
-            createPassengerButton.FlatAppearance.BorderSize = 2;
-            createPassengerButton.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            createPassengerButton.ForeColor = SystemColors.ButtonFace;
-            createPassengerButton.IconChar = FontAwesome.Sharp.IconChar.None;
-            createPassengerButton.IconColor = Color.Black;
-            createPassengerButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            createPassengerButton.Location = new Point(1018, 11);
-            createPassengerButton.Name = "createPassengerButton";
-            createPassengerButton.Size = new Size(79, 29);
-            createPassengerButton.TabIndex = 6;
-            createPassengerButton.Text = "Mới";
-            createPassengerButton.UseVisualStyleBackColor = false;
-            createPassengerButton.Click += createPassengerButton_Click;
-            // 
             // dgvPassenger
             // 
             dgvPassenger.AllowUserToAddRows = false;
@@ -147,58 +128,8 @@
             dgvPassenger.Name = "dgvPassenger";
             dgvPassenger.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dgvPassenger.RowTemplate.Height = 35;
-            dgvPassenger.Size = new Size(1085, 550);
+            dgvPassenger.Size = new Size(1006, 539);
             dgvPassenger.TabIndex = 9;
-            // 
-            // id
-            // 
-            id.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            id.DataPropertyName = "Id";
-            id.FillWeight = 30F;
-            id.HeaderText = "STT";
-            id.Name = "id";
-            id.ReadOnly = true;
-            // 
-            // name
-            // 
-            name.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            name.DataPropertyName = "Name";
-            name.HeaderText = "Họ và tên";
-            name.Name = "name";
-            // 
-            // email
-            // 
-            email.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            email.DataPropertyName = "Email";
-            email.HeaderText = "Email";
-            email.Name = "email";
-            // 
-            // phoneNumber
-            // 
-            phoneNumber.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            phoneNumber.DataPropertyName = "PhoneNumber";
-            phoneNumber.HeaderText = "Số điện thoại";
-            phoneNumber.Name = "phoneNumber";
-            // 
-            // age
-            // 
-            age.DataPropertyName = "Age";
-            age.FillWeight = 50F;
-            age.HeaderText = "Tuổi";
-            age.Name = "age";
-            // 
-            // action
-            // 
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.NullValue = resources.GetObject("dataGridViewCellStyle2.NullValue");
-            dataGridViewCellStyle2.Padding = new Padding(8);
-            action.DefaultCellStyle = dataGridViewCellStyle2;
-            action.HeaderText = "";
-            action.Image = (Image)resources.GetObject("action.Image");
-            action.ImageLayout = DataGridViewImageCellLayout.Zoom;
-            action.Name = "action";
-            action.Resizable = DataGridViewTriState.True;
-            action.Width = 50;
             // 
             // ImportExcel
             // 
@@ -236,18 +167,72 @@
             ExportExcel.UseVisualStyleBackColor = false;
             ExportExcel.Click += ExportExcel_Click;
             // 
+            // id
+            // 
+            id.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            id.DataPropertyName = "Id";
+            id.FillWeight = 33.2366333F;
+            id.HeaderText = "STT";
+            id.Name = "id";
+            id.ReadOnly = true;
+            // 
+            // name
+            // 
+            name.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            name.DataPropertyName = "Name";
+            name.FillWeight = 106.971F;
+            name.HeaderText = "Họ và tên";
+            name.Name = "name";
+            // 
+            // email
+            // 
+            email.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            email.DataPropertyName = "Email";
+            email.FillWeight = 106.971F;
+            email.HeaderText = "Email";
+            email.Name = "email";
+            // 
+            // phoneNumber
+            // 
+            phoneNumber.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            phoneNumber.DataPropertyName = "PhoneNumber";
+            phoneNumber.FillWeight = 106.971F;
+            phoneNumber.HeaderText = "Số điện thoại";
+            phoneNumber.Name = "phoneNumber";
+            // 
+            // age
+            // 
+            age.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            age.DataPropertyName = "Age";
+            age.FillWeight = 25.850338F;
+            age.HeaderText = "Tuổi";
+            age.Name = "age";
+            // 
+            // action
+            // 
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.NullValue = resources.GetObject("dataGridViewCellStyle2.NullValue");
+            dataGridViewCellStyle2.Padding = new Padding(8);
+            action.DefaultCellStyle = dataGridViewCellStyle2;
+            action.HeaderText = "";
+            action.Image = (Image)resources.GetObject("action.Image");
+            action.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            action.Name = "action";
+            action.Resizable = DataGridViewTriState.True;
+            action.Width = 50;
+            // 
             // PassengerForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1111, 593);
+            BackColor = Color.FromArgb(244, 243, 247);
+            ClientSize = new Size(1111, 609);
             Controls.Add(ExportExcel);
             Controls.Add(ImportExcel);
             Controls.Add(dgvPassenger);
             Controls.Add(searchButton);
             Controls.Add(searchTextbox);
             Controls.Add(refershButton);
-            Controls.Add(createPassengerButton);
             Controls.Add(titleLabel);
             Name = "PassengerForm";
             Text = "PassengerForm";
@@ -262,15 +247,14 @@
         private FontAwesome.Sharp.IconButton searchButton;
         private TextBox searchTextbox;
         private FontAwesome.Sharp.IconButton refershButton;
-        private FontAwesome.Sharp.IconButton createPassengerButton;
         private DataGridView dgvPassenger;
+        private FontAwesome.Sharp.IconButton ImportExcel;
+        private FontAwesome.Sharp.IconButton ExportExcel;
         private DataGridViewTextBoxColumn id;
         private DataGridViewTextBoxColumn name;
         private DataGridViewTextBoxColumn email;
         private DataGridViewTextBoxColumn phoneNumber;
         private DataGridViewTextBoxColumn age;
         private DataGridViewImageColumn action;
-        private FontAwesome.Sharp.IconButton ImportExcel;
-        private FontAwesome.Sharp.IconButton ExportExcel;
     }
 }

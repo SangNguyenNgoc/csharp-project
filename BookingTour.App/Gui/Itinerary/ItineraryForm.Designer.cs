@@ -1,6 +1,6 @@
-﻿namespace BookingTour.App.Gui.BillGui
+﻿namespace BookingTour.App.Gui.Itinerary
 {
-    partial class BillForm
+    partial class ItineraryForm
     {
         /// <summary>
         /// Required designer variable.
@@ -31,30 +31,21 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BillForm));
-            titleLabel = new Label();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ItineraryForm));
             searchButton = new FontAwesome.Sharp.IconButton();
             searchTextbox = new TextBox();
+            titleLabel = new Label();
             refershButton = new FontAwesome.Sharp.IconButton();
-            createBillButton = new FontAwesome.Sharp.IconButton();
-            dgvBill = new DataGridView();
+            createAccountButton = new FontAwesome.Sharp.IconButton();
+            dataGridView1 = new DataGridView();
             id = new DataGridViewTextBoxColumn();
-            total_passenger = new DataGridViewTextBoxColumn();
-            total_price = new DataGridViewTextBoxColumn();
-            invoice_issuer = new DataGridViewTextBoxColumn();
+            name = new DataGridViewTextBoxColumn();
+            numberOfDays = new DataGridViewTextBoxColumn();
+            vehicle = new DataGridViewTextBoxColumn();
+            capacity = new DataGridViewTextBoxColumn();
             action = new DataGridViewImageColumn();
-            ((System.ComponentModel.ISupportInitialize)dgvBill).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
-            // 
-            // titleLabel
-            // 
-            titleLabel.AutoSize = true;
-            titleLabel.Font = new Font("Verdana", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            titleLabel.Location = new Point(12, 9);
-            titleLabel.Name = "titleLabel";
-            titleLabel.Size = new Size(162, 18);
-            titleLabel.TabIndex = 3;
-            titleLabel.Text = "Danh sách hóa đơn";
             // 
             // searchButton
             // 
@@ -66,20 +57,31 @@
             searchButton.IconChar = FontAwesome.Sharp.IconChar.None;
             searchButton.IconColor = Color.Black;
             searchButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            searchButton.Location = new Point(842, 9);
+            searchButton.Location = new Point(743, 17);
             searchButton.Name = "searchButton";
             searchButton.Size = new Size(79, 29);
-            searchButton.TabIndex = 8;
+            searchButton.TabIndex = 10;
             searchButton.Text = "Tìm";
             searchButton.UseVisualStyleBackColor = false;
+            searchButton.Click += searchButton_Click;
             // 
             // searchTextbox
             // 
             searchTextbox.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            searchTextbox.Location = new Point(605, 12);
+            searchTextbox.Location = new Point(506, 20);
             searchTextbox.Name = "searchTextbox";
             searchTextbox.Size = new Size(231, 25);
-            searchTextbox.TabIndex = 7;
+            searchTextbox.TabIndex = 9;
+            // 
+            // titleLabel
+            // 
+            titleLabel.AutoSize = true;
+            titleLabel.Font = new Font("Verdana", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            titleLabel.Location = new Point(12, 16);
+            titleLabel.Name = "titleLabel";
+            titleLabel.Size = new Size(166, 18);
+            titleLabel.TabIndex = 8;
+            titleLabel.Text = "Danh sách lịch trình";
             // 
             // refershButton
             // 
@@ -91,37 +93,38 @@
             refershButton.IconChar = FontAwesome.Sharp.IconChar.None;
             refershButton.IconColor = Color.Black;
             refershButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            refershButton.Location = new Point(927, 8);
+            refershButton.Location = new Point(828, 16);
             refershButton.Name = "refershButton";
             refershButton.Size = new Size(79, 29);
-            refershButton.TabIndex = 5;
+            refershButton.TabIndex = 6;
             refershButton.Text = "Làm mới";
             refershButton.UseVisualStyleBackColor = false;
+            refershButton.Click += refreshButton_Click;
             // 
-            // createBillButton
+            // createAccountButton
             // 
-            createBillButton.BackColor = Color.FromArgb(21, 128, 61);
-            createBillButton.FlatAppearance.BorderColor = Color.FromArgb(21, 128, 61);
-            createBillButton.FlatAppearance.BorderSize = 2;
-            createBillButton.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            createBillButton.ForeColor = SystemColors.ButtonFace;
-            createBillButton.IconChar = FontAwesome.Sharp.IconChar.None;
-            createBillButton.IconColor = Color.Black;
-            createBillButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            createBillButton.Location = new Point(1006, 8);
-            createBillButton.Name = "createBillButton";
-            createBillButton.Size = new Size(79, 29);
-            createBillButton.TabIndex = 6;
-            createBillButton.Text = "Mới";
-            createBillButton.UseVisualStyleBackColor = false;
-            createBillButton.Click += createBillButton_Click;
+            createAccountButton.BackColor = Color.FromArgb(21, 128, 61);
+            createAccountButton.FlatAppearance.BorderColor = Color.FromArgb(21, 128, 61);
+            createAccountButton.FlatAppearance.BorderSize = 2;
+            createAccountButton.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            createAccountButton.ForeColor = SystemColors.ButtonFace;
+            createAccountButton.IconChar = FontAwesome.Sharp.IconChar.None;
+            createAccountButton.IconColor = Color.Black;
+            createAccountButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            createAccountButton.Location = new Point(907, 16);
+            createAccountButton.Name = "createAccountButton";
+            createAccountButton.Size = new Size(79, 29);
+            createAccountButton.TabIndex = 7;
+            createAccountButton.Text = "Mới";
+            createAccountButton.UseVisualStyleBackColor = false;
+            createAccountButton.Click += createAccountButton_Click;
             // 
-            // dgvBill
+            // dataGridView1
             // 
-            dgvBill.AllowUserToAddRows = false;
-            dgvBill.BackgroundColor = Color.FromArgb(244, 243, 247);
-            dgvBill.BorderStyle = BorderStyle.None;
-            dgvBill.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.BackgroundColor = Color.FromArgb(244, 243, 247);
+            dataGridView1.BorderStyle = BorderStyle.None;
+            dataGridView1.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = SystemColors.Control;
             dataGridViewCellStyle1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -129,9 +132,9 @@
             dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgvBill.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            dgvBill.ColumnHeadersHeight = 35;
-            dgvBill.Columns.AddRange(new DataGridViewColumn[] { id, total_passenger, total_price, invoice_issuer, action });
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridView1.ColumnHeadersHeight = 35;
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { id, name, numberOfDays, vehicle, capacity, action });
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = SystemColors.Window;
             dataGridViewCellStyle3.Font = new Font("Segoe UI", 10F);
@@ -139,14 +142,14 @@
             dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            dgvBill.DefaultCellStyle = dataGridViewCellStyle3;
-            dgvBill.Location = new Point(12, 44);
-            dgvBill.Name = "dgvBill";
-            dgvBill.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dgvBill.RowTemplate.Height = 35;
-            dgvBill.Size = new Size(1073, 550);
-            dgvBill.TabIndex = 10;
-            dgvBill.CellContentClick += dgvBill_CellContentClick_1;
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridView1.Location = new Point(12, 51);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridView1.RowTemplate.Height = 35;
+            dataGridView1.Size = new Size(974, 550);
+            dataGridView1.TabIndex = 5;
+            dataGridView1.CellContentClick += DataGridView1_CellContentClick;
             // 
             // id
             // 
@@ -156,28 +159,34 @@
             id.HeaderText = "STT";
             id.Name = "id";
             id.ReadOnly = true;
-            id.Width = 30;
             // 
-            // total_passenger
+            // name
             // 
-            id.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            total_passenger.HeaderText = "Tổng Khách Hàng";
-            total_passenger.Name = "total_passenger";
-            total_passenger.Width = 200;
+            name.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            name.DataPropertyName = "Name";
+            name.HeaderText = "Tên";
+            name.Name = "name";
             // 
-            // total_price
+            // numberOfDays
             // 
-            id.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            total_price.HeaderText = "Tổng tiền";
-            total_price.Name = "total_price";
-            total_price.Width = 200;
+            numberOfDays.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            numberOfDays.DataPropertyName = "NumberOfDays";
+            numberOfDays.HeaderText = "Số ngày đi";
+            numberOfDays.Name = "numberOfDays";
             // 
-            // invoice_issuer
+            // vehicle
             // 
-            id.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            invoice_issuer.HeaderText = "Người xuất";
-            invoice_issuer.Name = "invoice_issuer";
-            invoice_issuer.Width = 300;
+            vehicle.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            vehicle.DataPropertyName = "Vehicle";
+            vehicle.HeaderText = "Phương tiện";
+            vehicle.Name = "vehicle";
+            // 
+            // capacity
+            // 
+            capacity.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            capacity.DataPropertyName = "Capacity";
+            capacity.HeaderText = "Số lượng người";
+            capacity.Name = "capacity";
             // 
             // action
             // 
@@ -190,37 +199,41 @@
             action.ImageLayout = DataGridViewImageCellLayout.Zoom;
             action.Name = "action";
             action.Resizable = DataGridViewTriState.True;
+            action.Width = 50;
             // 
-            // BillForm
+            // ItineraryForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1101, 603);
-            Controls.Add(dgvBill);
+            BackColor = Color.FromArgb(244, 243, 247);
+            ClientSize = new Size(998, 617);
             Controls.Add(searchButton);
             Controls.Add(searchTextbox);
-            Controls.Add(refershButton);
-            Controls.Add(createBillButton);
             Controls.Add(titleLabel);
-            Name = "BillForm";
-            Text = "BillForm";
-            ((System.ComponentModel.ISupportInitialize)dgvBill).EndInit();
+            Controls.Add(refershButton);
+            Controls.Add(createAccountButton);
+            Controls.Add(dataGridView1);
+            Name = "ItineraryForm";
+            Text = "ItineraryForm";
+            Load += ItineraryForm_Load;
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Label titleLabel;
         private FontAwesome.Sharp.IconButton searchButton;
         private TextBox searchTextbox;
+        private Label titleLabel;
         private FontAwesome.Sharp.IconButton refershButton;
-        private FontAwesome.Sharp.IconButton createBillButton;
-        private DataGridView dgvBill;
+        private FontAwesome.Sharp.IconButton createAccountButton;
+        private DataGridView dataGridView1;
         private DataGridViewTextBoxColumn id;
-        private DataGridViewTextBoxColumn total_passenger;
-        private DataGridViewTextBoxColumn total_price;
-        private DataGridViewTextBoxColumn invoice_issuer;
+        private DataGridViewTextBoxColumn name;
+        private DataGridViewTextBoxColumn numberOfDays;
+        private DataGridViewTextBoxColumn vehicle;
+        private DataGridViewTextBoxColumn capacity;
         private DataGridViewImageColumn action;
     }
 }

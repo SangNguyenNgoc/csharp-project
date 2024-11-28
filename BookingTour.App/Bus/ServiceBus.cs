@@ -1,4 +1,5 @@
-﻿using BookingTour.App.Helper;
+﻿using BookingTour.App.Dao;
+using BookingTour.App.Helper;
 using BookingTour.App.Models;
 
 namespace BookingTour.App.Bus;
@@ -32,15 +33,8 @@ public class ServiceBus
             return false;
         }
 
-        // Validate Type
-        if (!string.IsNullOrWhiteSpace(service.Type))
-        {
-            validationErrors = "Type cannot exceed 50 characters.";
-            return false;
-        }
-
         // Validate Description
-        if (!string.IsNullOrWhiteSpace(service.Description))
+        if (string.IsNullOrWhiteSpace(service.Description))
         {
             validationErrors = "Description cannot exceed 500 characters.";
             return false;
@@ -87,6 +81,32 @@ public class ServiceBus
         });
 
         return result == 0 ? null : service;
+    }
+
+    public List<Service> GetAllServices()
+    {
+        try
+        {
+            return _unit.Service.GetAllServices();
+        }
+        catch (System.Exception ex)
+        {
+            // Log lỗi (nếu có) hoặc xử lý lỗi tại đây
+            Console.WriteLine(@"Error while retrieving services: " + ex.Message);
+            return [];
+        }
+    }
+    
+    public Service? GetServiceById(int id)
+    {
+        var service = _unit.Service.GetServiceById(id);
+
+        if (service == null)
+        {
+            Console.WriteLine($@"Không tìm thấy Service với ID: {id}");
+        }
+
+        return service; 
     }
 
 }

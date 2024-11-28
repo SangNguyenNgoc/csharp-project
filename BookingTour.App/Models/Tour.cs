@@ -21,5 +21,5 @@ public partial class Tour
 
     public virtual Itinerary? Itinerary { get; set; }
 
-    public virtual ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
+    public virtual ICollection<Ticket>? Tickets { get; set; } = new List<Ticket>();
 }

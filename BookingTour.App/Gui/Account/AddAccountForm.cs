@@ -1,6 +1,5 @@
 ﻿using BookingTour.App.Bus;
 using BookingTour.App.Models;
-using Microsoft.VisualBasic.ApplicationServices;
 
 namespace BookingTour.App.Gui.Account;
 
@@ -135,7 +134,7 @@ public partial class AddAccountForm : Form
 
     private bool IsValidPhone(string phone)
     {
-        return phone.All(char.IsDigit) && phone.Length >= 10 && phone.Length <= 15;
+        return phone.All(char.IsDigit) && phone.Length is >= 10 and <= 15;
     }
 
     private void ClearForm()

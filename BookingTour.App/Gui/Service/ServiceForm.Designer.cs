@@ -1,6 +1,6 @@
-﻿namespace BookingTour.App.Gui.Account
+﻿namespace BookingTour.App.Gui.Service
 {
-    partial class AccountForm
+    partial class ServiceForm
     {
         /// <summary>
         /// Required designer variable.
@@ -31,21 +31,18 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AccountForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ServiceForm));
             dataGridView1 = new DataGridView();
             id = new DataGridViewTextBoxColumn();
             username = new DataGridViewTextBoxColumn();
             name = new DataGridViewTextBoxColumn();
             email = new DataGridViewTextBoxColumn();
-            phoneNumber = new DataGridViewTextBoxColumn();
-            isBlock = new DataGridViewCheckBoxColumn();
-            role = new DataGridViewTextBoxColumn();
             action = new DataGridViewImageColumn();
-            createAccountButton = new FontAwesome.Sharp.IconButton();
-            titleLabel = new Label();
-            searchTextbox = new TextBox();
             searchButton = new FontAwesome.Sharp.IconButton();
+            searchTextbox = new TextBox();
+            titleLabel = new Label();
             refershButton = new FontAwesome.Sharp.IconButton();
+            createAccountButton = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -64,7 +61,7 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.ColumnHeadersHeight = 35;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { id, username, name, email, phoneNumber, isBlock, role, action });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { id, username, name, email, action });
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = SystemColors.Window;
             dataGridViewCellStyle3.Font = new Font("Segoe UI", 10F);
@@ -73,20 +70,19 @@
             dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
             dataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
-            dataGridView1.Location = new Point(12, 55);
+            dataGridView1.Location = new Point(12, 64);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridView1.RowTemplate.Height = 35;
-            dataGridView1.Size = new Size(974, 550);
-            dataGridView1.TabIndex = 0;
+            dataGridView1.Size = new Size(974, 541);
+            dataGridView1.TabIndex = 1;
             dataGridView1.CellContentClick += DataGridView1_CellContentClick;
-            dataGridView1.CellValueChanged += DataGridView1_CellValueChanged;
             // 
             // id
             // 
             id.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             id.DataPropertyName = "Id";
-            id.FillWeight = 30F;
+            id.FillWeight = 44.897953F;
             id.HeaderText = "STT";
             id.Name = "id";
             id.ReadOnly = true;
@@ -94,48 +90,27 @@
             // username
             // 
             username.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            username.DataPropertyName = "Username";
-            username.HeaderText = "Mã nhân viên";
+            username.DataPropertyName = "Name";
+            username.FillWeight = 98.10322F;
+            username.HeaderText = "Tên dịch vụ";
             username.Name = "username";
             username.ReadOnly = true;
             // 
             // name
             // 
             name.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            name.DataPropertyName = "Name";
-            name.HeaderText = "Họ và tên";
+            name.DataPropertyName = "Type";
+            name.FillWeight = 41.10034F;
+            name.HeaderText = "Thể loại";
             name.Name = "name";
             // 
             // email
             // 
             email.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            email.DataPropertyName = "Email";
-            email.HeaderText = "Email";
+            email.DataPropertyName = "Description";
+            email.FillWeight = 145.898468F;
+            email.HeaderText = "Mô tả";
             email.Name = "email";
-            // 
-            // phoneNumber
-            // 
-            phoneNumber.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            phoneNumber.DataPropertyName = "PhoneNumber";
-            phoneNumber.HeaderText = "Số điện thoại";
-            phoneNumber.Name = "phoneNumber";
-            // 
-            // isBlock
-            // 
-            isBlock.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            isBlock.DataPropertyName = "IsBlock";
-            isBlock.FillWeight = 30F;
-            isBlock.HeaderText = "Khóa";
-            isBlock.Name = "isBlock";
-            isBlock.Resizable = DataGridViewTriState.True;
-            isBlock.SortMode = DataGridViewColumnSortMode.Automatic;
-            // 
-            // role
-            // 
-            role.DataPropertyName = "Role";
-            role.FillWeight = 50F;
-            role.HeaderText = "Vai trò";
-            role.Name = "role";
             // 
             // action
             // 
@@ -150,43 +125,6 @@
             action.Resizable = DataGridViewTriState.True;
             action.Width = 50;
             // 
-            // createAccountButton
-            // 
-            createAccountButton.BackColor = Color.FromArgb(21, 128, 61);
-            createAccountButton.FlatAppearance.BorderColor = Color.FromArgb(21, 128, 61);
-            createAccountButton.FlatAppearance.BorderSize = 2;
-            createAccountButton.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            createAccountButton.ForeColor = SystemColors.ButtonFace;
-            createAccountButton.IconChar = FontAwesome.Sharp.IconChar.None;
-            createAccountButton.IconColor = Color.Black;
-            createAccountButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            createAccountButton.Location = new Point(907, 20);
-            createAccountButton.Name = "createAccountButton";
-            createAccountButton.Size = new Size(79, 29);
-            createAccountButton.TabIndex = 1;
-            createAccountButton.Text = "Mới";
-            createAccountButton.UseVisualStyleBackColor = false;
-            createAccountButton.Click += createAccountButton_Click;
-            // 
-            // titleLabel
-            // 
-            titleLabel.AutoSize = true;
-            titleLabel.Font = new Font("Verdana", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            titleLabel.Location = new Point(12, 20);
-            titleLabel.Name = "titleLabel";
-            titleLabel.Size = new Size(173, 18);
-            titleLabel.TabIndex = 2;
-            titleLabel.Text = "Danh sách tài khoản";
-            titleLabel.Click += titleLabel_Click;
-            // 
-            // searchTextbox
-            // 
-            searchTextbox.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            searchTextbox.Location = new Point(506, 24);
-            searchTextbox.Name = "searchTextbox";
-            searchTextbox.Size = new Size(231, 25);
-            searchTextbox.TabIndex = 3;
-            // 
             // searchButton
             // 
             searchButton.BackColor = Color.Transparent;
@@ -197,13 +135,31 @@
             searchButton.IconChar = FontAwesome.Sharp.IconChar.None;
             searchButton.IconColor = Color.Black;
             searchButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            searchButton.Location = new Point(743, 21);
+            searchButton.Location = new Point(743, 27);
             searchButton.Name = "searchButton";
             searchButton.Size = new Size(79, 29);
-            searchButton.TabIndex = 4;
+            searchButton.TabIndex = 9;
             searchButton.Text = "Tìm";
             searchButton.UseVisualStyleBackColor = false;
             searchButton.Click += searchButton_Click;
+            // 
+            // searchTextbox
+            // 
+            searchTextbox.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            searchTextbox.Location = new Point(506, 30);
+            searchTextbox.Name = "searchTextbox";
+            searchTextbox.Size = new Size(231, 25);
+            searchTextbox.TabIndex = 8;
+            // 
+            // titleLabel
+            // 
+            titleLabel.AutoSize = true;
+            titleLabel.Font = new Font("Verdana", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            titleLabel.Location = new Point(12, 26);
+            titleLabel.Name = "titleLabel";
+            titleLabel.Size = new Size(154, 18);
+            titleLabel.TabIndex = 7;
+            titleLabel.Text = "Danh sách dịch vụ";
             // 
             // refershButton
             // 
@@ -215,15 +171,33 @@
             refershButton.IconChar = FontAwesome.Sharp.IconChar.None;
             refershButton.IconColor = Color.Black;
             refershButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            refershButton.Location = new Point(828, 20);
+            refershButton.Location = new Point(828, 26);
             refershButton.Name = "refershButton";
             refershButton.Size = new Size(79, 29);
-            refershButton.TabIndex = 1;
+            refershButton.TabIndex = 5;
             refershButton.Text = "Làm mới";
             refershButton.UseVisualStyleBackColor = false;
             refershButton.Click += refreshButton_Click;
             // 
-            // AccountForm
+            // createAccountButton
+            // 
+            createAccountButton.BackColor = Color.FromArgb(21, 128, 61);
+            createAccountButton.FlatAppearance.BorderColor = Color.FromArgb(21, 128, 61);
+            createAccountButton.FlatAppearance.BorderSize = 2;
+            createAccountButton.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            createAccountButton.ForeColor = SystemColors.ButtonFace;
+            createAccountButton.IconChar = FontAwesome.Sharp.IconChar.None;
+            createAccountButton.IconColor = Color.Black;
+            createAccountButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            createAccountButton.Location = new Point(907, 26);
+            createAccountButton.Name = "createAccountButton";
+            createAccountButton.Size = new Size(79, 29);
+            createAccountButton.TabIndex = 6;
+            createAccountButton.Text = "Mới";
+            createAccountButton.UseVisualStyleBackColor = false;
+            createAccountButton.Click += createAccountButton_Click;
+            // 
+            // ServiceForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -235,9 +209,9 @@
             Controls.Add(refershButton);
             Controls.Add(createAccountButton);
             Controls.Add(dataGridView1);
-            Name = "AccountForm";
-            Text = "AccountForm";
-            Load += AccountForm_Load;
+            Name = "ServiceForm";
+            Text = "ServiceForm";
+            Load += ServiceForm_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -246,18 +220,15 @@
         #endregion
 
         private DataGridView dataGridView1;
-        private FontAwesome.Sharp.IconButton createAccountButton;
-        private Label titleLabel;
         private DataGridViewTextBoxColumn id;
         private DataGridViewTextBoxColumn username;
         private DataGridViewTextBoxColumn name;
         private DataGridViewTextBoxColumn email;
-        private DataGridViewTextBoxColumn phoneNumber;
-        private DataGridViewCheckBoxColumn isBlock;
-        private DataGridViewTextBoxColumn role;
         private DataGridViewImageColumn action;
-        private TextBox searchTextbox;
         private FontAwesome.Sharp.IconButton searchButton;
+        private TextBox searchTextbox;
+        private Label titleLabel;
         private FontAwesome.Sharp.IconButton refershButton;
+        private FontAwesome.Sharp.IconButton createAccountButton;
     }
 }

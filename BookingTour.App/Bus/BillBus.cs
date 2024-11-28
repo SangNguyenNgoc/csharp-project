@@ -13,4 +13,12 @@ public class BillBus
     {
         return _unit.Bill.GetAll();
     }
+    public Bill GetBillById(int id)
+    {
+        return _unit.Bill.GetBillById(id);
+    }
+    public int CreateBill(Bill bill)
+    {
+        return _unit.Bill.Create(bill);
+    }
 }

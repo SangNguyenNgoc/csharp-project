@@ -40,7 +40,6 @@ public class PassengerDao
         const string query = "SELECT * FROM Passenger";
 
         var result = _dbHelper.ExecuteQuery(query);
-
         return (from DataRow row in result.Rows
                 select new Passenger
                 {
@@ -50,6 +49,7 @@ public class PassengerDao
                     PhoneNumber = row["phone_number"].ToString(),
                     Age = Convert.ToInt32(row["age"])
                 }).ToList();
+        
     }
     public int Create(Passenger passenger)
     {
@@ -68,5 +68,26 @@ public class PassengerDao
         };
 
         return _dbHelper.ExecuteNonQuery(query, parameters);
+    }
+
+    public List<Passenger> GetPassengersOfBill(int billId)
+    {
+
+        const string query = @"SELECT p.id,p.name,p.email,p.phone_number,age FROM bill b join ticket ti on b.id=ti.bill_id join passenger p on p.id=ti.passenger_id
+                               WHERE b.id =@billId";
+
+        var parameters = new[]
+        {
+            new MySqlParameter("@billId", MySqlDbType.Int32) { Value = billId }
+        };
+        return _dbHelper.ExecuteQueryToEntities(query, reader =>
+            new Passenger
+            {
+                Id = reader.GetInt32("id"),
+                Name = reader.GetString("name"),
+                Email = reader.GetString("email"),
+                PhoneNumber = reader.GetString("phone_number"),
+                Age = reader.GetInt32("age")
+            }, parameters.ToArray());
     }
 }

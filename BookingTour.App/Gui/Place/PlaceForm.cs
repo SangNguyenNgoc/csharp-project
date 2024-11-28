@@ -1,4 +1,5 @@
 ﻿using BookingTour.App.Bus;
+using BookingTour.App.Gui.Utils;
 using BookingTour.App.Models;
 
 namespace BookingTour.App.Gui.Place;
@@ -13,10 +14,7 @@ public partial class PlaceForm : Form
 
     private void PlaceForm_Load(object sender, EventArgs e)
     {
-        using var g = this.CreateGraphics();
-        var dpiX = g.DpiX;  // Lấy DPI của màn hình hiện tại
-        var scaleFactor = dpiX / 96.0f; // Tính tỷ lệ so với DPI chuẩn (96 DPI)
-
+        var scaleFactor = GuiUtils.GetScaleInScreen(this);
         ScaleControls(this, scaleFactor);
     }
 
@@ -24,19 +22,36 @@ public partial class PlaceForm : Form
     {
         foreach (Control control in parent.Controls)
         {
-            // Điều chỉnh kích thước và vị trí
-            control.Width = (int)(control.Width * scaleFactor);
-            control.Height = (int)(control.Height * scaleFactor);
-            control.Location = new Point((int)(control.Location.X * scaleFactor),
-                (int)(control.Location.Y * scaleFactor));
-
-
+            // Điều chỉnh riêng cho DataGridView
+            if (control is DataGridView dataGridView)
+            {
+                // Scale font chữ
+                dataGridView.Font = new Font(dataGridView.Font.FontFamily, dataGridView.Font.Size * scaleFactor);
+        
+                // Scale kích thước các hàng
+                foreach (DataGridViewRow row in dataGridView.Rows)
+                {
+                    row.Height = (int)(row.Height * scaleFactor);
+                }
+        
+                // // Scale kích thước các cột
+                // foreach (DataGridViewColumn column in dataGridView.Columns)
+                // {
+                //     column.Width = (int)(column.Width * scaleFactor);
+                // }
+        
+                // Scale kích thước header
+                dataGridView.ColumnHeadersHeight = (int)(dataGridView.ColumnHeadersHeight * scaleFactor);
+                // dataGridView.RowHeadersWidth = (int)(dataGridView.RowHeadersWidth * scaleFactor);
+            }
+        
+            // Điều chỉnh kích thước IconButton nếu cần
             if (control is FontAwesome.Sharp.IconButton iconButton)
             {
                 iconButton.IconSize = (int)(iconButton.IconSize * scaleFactor);
             }
-
-            // Nếu control có children, gọi đệ quy
+        
+            // Nếu control có các con (children), gọi đệ quy
             if (control.HasChildren)
             {
                 ScaleControls(control, scaleFactor);
@@ -68,29 +83,24 @@ public partial class PlaceForm : Form
     private void createPlaceButton_Click(object sender, EventArgs e)
     {
         var inputName = ShowInputDialog("Nhập tên địa điểm:", "Thêm địa điểm", null);
-        if (!string.IsNullOrEmpty(inputName))
+        if (string.IsNullOrEmpty(inputName)) return;
+        var place = new Models.Place
         {
-            var place = new Models.Place
-            {
-                Id = 0,
-                Name = inputName,
-                Activities = null
-            };
-            PlaceBus.Instance.CreatePlace(place);
-            LoadPaceData(null);
-        }
-        else
-        {
-            MessageBox.Show(@"Tên địa điểm không được để trống!", @"Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
+            Id = 0,
+            Name = inputName,
+            Activities = null
+        };
+        PlaceBus.Instance.CreatePlace(place);
+        LoadPaceData(null);
     }
 
     private string? ShowInputDialog(string prompt, string title, string? placeName)
     {
+        var scaleFactor = GuiUtils.GetScaleInScreen(this);
         var inputBox = new Form
         {
-            Width = 400,
-            Height = 180,
+            Width = (int) (400 * scaleFactor),
+            Height = (int) (180 * scaleFactor),
             Text = title,
             StartPosition = FormStartPosition.CenterParent,
             FormBorderStyle = FormBorderStyle.FixedDialog,
@@ -128,7 +138,9 @@ public partial class PlaceForm : Form
         {
             inputTextBox.Text = placeName;
         }
+        
 
+        GuiUtils.Scale(inputBox, scaleFactor);
         var result = inputBox.ShowDialog();
         return result == DialogResult.OK ? inputTextBox.Text.Trim() : null;
     }
@@ -151,6 +163,13 @@ public partial class PlaceForm : Form
     private void refreshButton_Click(object sender, EventArgs e)
     {
         LoadPaceData(null);
+        var scaleFactor = GuiUtils.GetScaleInScreen(this);
+        dataGridView1.Font = new Font(dataGridView1.Font.FontFamily, dataGridView1.Font.Size * scaleFactor);
+        // Scale kích thước các hàng
+        foreach (DataGridViewRow row in dataGridView1.Rows)
+        {
+            row.Height = (int)(row.Height * scaleFactor);
+        }
     }
 
     private void DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -161,29 +180,25 @@ public partial class PlaceForm : Form
             var placeId = (int)dataGridView1.Rows[e.RowIndex].Cells["Id"].Value;
             var place = PlaceBus.Instance.GetPlaceById(placeId);
             var inputName = ShowInputDialog("Nhập tên địa điểm:", "Thêm địa điểm", place?.Name);
-            if (!string.IsNullOrEmpty(inputName))
-            {
-                place!.Name = inputName;
-                PlaceBus.Instance.UpdatePlace(place);
-                LoadPaceData(null);
-            }
-            else
-            {
-                MessageBox.Show(@"Tên địa điểm không được để trống!", @"Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
+            if (string.IsNullOrEmpty(inputName)) return;
+            place!.Name = inputName;
+            PlaceBus.Instance.UpdatePlace(place);
+            LoadPaceData(null);
         }
     }
 
     private void dataGridView1_SelectionChanged(object sender, EventArgs e)
     {
         if (dataGridView1.CurrentRow == null) return;
-        // Lấy giá trị ID từ cột "Id" của dòng đang được chọn
         var placeId = (int)dataGridView1.CurrentRow.Cells["Id"].Value;
-
-        //MessageBox.Show($"ID được chọn: {placeId}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         var data = ActivityBus.Instance.GetActivitiesByPlaceId(placeId);
         LoadActivityData(data);
+        var scaleFactor = GuiUtils.GetScaleInScreen(this);
+        dataGridView2.Font = new Font(dataGridView2.Font.FontFamily, dataGridView2.Font.Size * scaleFactor);
+        foreach (DataGridViewRow row in dataGridView2.Rows)
+        {
+            row.Height = (int)(row.Height * scaleFactor);
+        }
     }
 
     private void LoadActivityData(ICollection<Activity> data)
@@ -229,6 +244,13 @@ public partial class PlaceForm : Form
         ActivityBus.Instance.CreateActivity(activity);
         var data = ActivityBus.Instance.GetActivitiesByPlaceId(placeId);
         LoadActivityData(data);
+        var scaleFactor = GuiUtils.GetScaleInScreen(this);
+        dataGridView2.Font = new Font(dataGridView2.Font.FontFamily, dataGridView2.Font.Size * scaleFactor);
+        // Scale kích thước các hàng
+        foreach (DataGridViewRow row in dataGridView2.Rows)
+        {
+            row.Height = (int)(row.Height * scaleFactor);
+        }
     }
 
     private void refreshActivityButton_Click(object sender, EventArgs e)
@@ -237,6 +259,14 @@ public partial class PlaceForm : Form
         var placeId = (int)dataGridView1.CurrentRow.Cells["Id"].Value;
         var data = ActivityBus.Instance.GetActivitiesByPlaceId(placeId);
         LoadActivityData(data);
+        var scaleFactor = GuiUtils.GetScaleInScreen(this);
+        dataGridView2.Font = new Font(dataGridView2.Font.FontFamily, dataGridView2.Font.Size * scaleFactor);
+        
+        // Scale kích thước các hàng
+        foreach (DataGridViewRow row in dataGridView2.Rows)
+        {
+            row.Height = (int)(row.Height * scaleFactor);
+        }
     }
 
     private void DataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)

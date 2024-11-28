@@ -13,6 +13,12 @@
     <Compile Update="Gui\BillGui\BillForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Gui\Itinerary\ItineraryDetailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Gui\Itinerary\ItineraryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Gui\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -31,7 +37,10 @@
     <Compile Update="Gui\Place\PlaceForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Gui\Tour\TourForm.cs">
+    <Compile Update="Gui\TourGui\TourForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Gui\Service\ServiceForm.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
