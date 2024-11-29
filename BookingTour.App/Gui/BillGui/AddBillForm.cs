@@ -15,6 +15,7 @@ using System.Windows.Forms;
 using System.Reflection.Metadata;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using ExcelDataReader;
 
 namespace BookingTour.App.Gui.BillGui;
 public partial class AddBillForm : System.Windows.Forms.Form
@@ -191,31 +192,38 @@ public partial class AddBillForm : System.Windows.Forms.Form
 
     private void saveButton_Click(object sender, EventArgs e)
     {
-        List<Passenger> selectedPassengers = GetSelectedPassengers();
-        Models.Tour tour = TourBus.Instance.GetById(GetSelectedTour());
-        Bill bill = new Bill
+        if (_billId == null)
         {
-            TotalPassenger = selectedPassengers.Count,
-            TotalPrice = Convert.ToInt32(totalpriceTextbox.Text),
-            InvoiceIssuer = Convert.ToInt32(Session.Get<Models.User>("CurrentUser")?.Id),
-        };
-        int billId = BillBus.Instance.CreateBill(bill);
-
-        foreach (var passenger in selectedPassengers)
-        {
-            Ticket ticket = new Ticket
+            List<Passenger> selectedPassengers = GetSelectedPassengers();
+            Models.Tour tour = TourBus.Instance.GetById(GetSelectedTour());
+            Bill bill = new Bill
             {
-                Price = Convert.ToInt32(tour.Price),
-                PassengerId = passenger.Id,
-                BillId = billId,
-                TourId = tour.Id,
+                TotalPassenger = selectedPassengers.Count,
+                TotalPrice = Convert.ToInt32(totalpriceTextbox.Text),
+                InvoiceIssuer = Convert.ToInt32(Session.Get<Models.User>("CurrentUser")?.Id),
             };
-            TicketBus.Instance.CreateTicket(ticket);
-        }
+            int billId = BillBus.Instance.CreateBill(bill);
 
-        MessageBox.Show(@"Hóa đơn thêm thành công!", @"Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        ResetParentForm();
-        this.Close();
+            foreach (var passenger in selectedPassengers)
+            {
+                Ticket ticket = new Ticket
+                {
+                    Price = Convert.ToInt32(tour.Price),
+                    PassengerId = passenger.Id,
+                    BillId = billId,
+                    TourId = tour.Id,
+                };
+                TicketBus.Instance.CreateTicket(ticket);
+            }
+
+            MessageBox.Show(@"Hóa đơn thêm thành công!", @"Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            ResetParentForm();
+            this.Close();
+        }
+        else
+        {
+            MessageBox.Show("Coming soon");
+        }
     }
     private void ResetParentForm()
     {
@@ -273,7 +281,7 @@ public partial class AddBillForm : System.Windows.Forms.Form
 
     private void buttonPDF_Click(object sender, EventArgs e)
     {
-        if(_billId!= null)
+        if (_billId != null)
         {
             List<Passenger> selectedPassengers = GetSelectedPassengers();
             Models.Tour tour = TourBus.Instance.GetById(GetSelectedTour());
@@ -339,6 +347,77 @@ public partial class AddBillForm : System.Windows.Forms.Form
         else
         {
             MessageBox.Show("Hóa đơn chưa được lưu trong Database");
+        }
+    }
+
+    private void ImportExcel_Click(object sender, EventArgs e)
+    {
+        using (OpenFileDialog ofd = new OpenFileDialog()
+        {
+            Filter = "Excel Workbook|*.xls;*.xlsx",
+            ValidateNames = true
+        })
+        {
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    // Mở FileStream để đọc file
+                    using (FileStream fs = File.Open(ofd.FileName, FileMode.Open, FileAccess.Read))
+                    {
+                        // Đọc file Excel
+                        using (IExcelDataReader reader = ExcelReaderFactory.CreateReader(fs))
+                        {
+                            // Chuyển đổi dữ liệu Excel thành DataSet
+                            DataSet result = reader.AsDataSet(new ExcelDataSetConfiguration()
+                            {
+                                ConfigureDataTable = (_) => new ExcelDataTableConfiguration()
+                                {
+                                    UseHeaderRow = true // Sử dụng hàng đầu tiên làm header
+                                }
+                            });
+
+                            // Lấy DataTable đầu tiên
+                            DataTable dataTable = result.Tables[0];
+                            var listpassengers = new List<Passenger>(); 
+                            foreach (DataRow row in dataTable.Rows)
+                            {
+                                Passenger passenger = new Passenger()
+                                {
+                                    Id = Convert.ToInt32(row["id"]),
+                                    Name = row["name"].ToString(),
+                                    Email = row["email"].ToString(),
+                                    PhoneNumber = row["phone_number"].ToString(),
+                                    Age = Convert.ToInt32(row["age"])
+                                };
+                                
+                                int lastid = PassengerBus.Instance.CreatePassengerLastId(passenger);
+                                passenger.Id = lastid;
+                                listpassengers.Add(passenger);
+                            }
+
+                            LoadData(null,null);
+                            foreach (DataGridViewRow row in dgvPassenger.Rows)
+                            {
+                                foreach (Passenger passenger in listpassengers)
+                                {
+                                    if (Convert.ToInt32(row.Cells["idKH"].Value) == passenger.Id)
+                                    {
+                                        row.Cells["join"].Value = true;
+                                    }
+                                }
+
+                            }
+                            
+                            
+                        }
+                    }
+                }
+                catch (ArgumentException ex)
+                {
+                    MessageBox.Show($"Lỗi khi đọc file Excel: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }

@@ -44,7 +44,9 @@ internal static class Program
             }
 
         } while (isLoggedIn);
-
+        /*
         //Application.Run(new MainForm());
+        Test test = new Test();
+        test.Run();*/
     }
 }

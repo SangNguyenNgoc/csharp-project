@@ -70,6 +70,28 @@ public class PassengerDao
         return _dbHelper.ExecuteNonQuery(query, parameters);
     }
 
+    public int CreateLastId(Passenger passenger)
+    {
+        const string query = @"
+        INSERT INTO passenger ( name, email, phone_number, age)
+        VALUES (@Name, @Email, @PhoneNumber, @Age);
+        SELECT LAST_INSERT_ID();";  // Trả về ID của bản ghi vừa chèn
+
+        var parameters = new MySql.Data.MySqlClient.MySqlParameter[]
+        {
+            new("@Name", passenger.Name),
+            new("@Email", passenger.Email),
+            new("@PhoneNumber", passenger.PhoneNumber),
+            new("@Age", passenger.Age),
+        };
+
+        // Thực hiện câu lệnh và lấy ID vừa tạo
+        object result = _dbHelper.ExecuteScalar(query, parameters);
+
+        // Trả về ID nếu có, hoặc -1 nếu không thành công
+        return result != null ? Convert.ToInt32(result) : -1;
+    }
+
     public List<Passenger> GetPassengersOfBill(int billId)
     {
 

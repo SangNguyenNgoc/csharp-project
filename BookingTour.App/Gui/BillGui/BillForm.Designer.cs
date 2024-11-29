@@ -66,7 +66,7 @@
             searchButton.IconChar = FontAwesome.Sharp.IconChar.None;
             searchButton.IconColor = Color.Black;
             searchButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            searchButton.Location = new Point(842, 9);
+            searchButton.Location = new Point(851, 43);
             searchButton.Name = "searchButton";
             searchButton.Size = new Size(79, 29);
             searchButton.TabIndex = 8;
@@ -156,25 +156,21 @@
             id.HeaderText = "STT";
             id.Name = "id";
             id.ReadOnly = true;
-            id.Width = 30;
             // 
             // total_passenger
             // 
-            id.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             total_passenger.HeaderText = "Tổng Khách Hàng";
             total_passenger.Name = "total_passenger";
             total_passenger.Width = 200;
             // 
             // total_price
             // 
-            id.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             total_price.HeaderText = "Tổng tiền";
             total_price.Name = "total_price";
             total_price.Width = 200;
             // 
             // invoice_issuer
             // 
-            id.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             invoice_issuer.HeaderText = "Người xuất";
             invoice_issuer.Name = "invoice_issuer";
             invoice_issuer.Width = 300;

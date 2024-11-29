@@ -51,6 +51,7 @@
             price = new DataGridViewTextBoxColumn();
             choose = new DataGridViewCheckBoxColumn();
             buttonPDF = new Button();
+            ImportExcel = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)dgvPassenger).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvTour).BeginInit();
             SuspendLayout();
@@ -83,7 +84,7 @@
             dgvPassenger.Name = "dgvPassenger";
             dgvPassenger.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dgvPassenger.RowTemplate.Height = 35;
-            dgvPassenger.Size = new Size(358, 505);
+            dgvPassenger.Size = new Size(358, 453);
             dgvPassenger.TabIndex = 10;
             dgvPassenger.CellContentClick += dgvPassenger_CellContentClick;
             // 
@@ -274,11 +275,30 @@
             buttonPDF.UseVisualStyleBackColor = false;
             buttonPDF.Click += buttonPDF_Click;
             // 
+            // ImportExcel
+            // 
+            ImportExcel.BackColor = Color.FromArgb(21, 128, 61);
+            ImportExcel.FlatAppearance.BorderColor = Color.FromArgb(21, 128, 61);
+            ImportExcel.FlatAppearance.BorderSize = 2;
+            ImportExcel.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            ImportExcel.ForeColor = SystemColors.ButtonFace;
+            ImportExcel.IconChar = FontAwesome.Sharp.IconChar.None;
+            ImportExcel.IconColor = Color.Black;
+            ImportExcel.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            ImportExcel.Location = new Point(12, 507);
+            ImportExcel.Name = "ImportExcel";
+            ImportExcel.Size = new Size(139, 29);
+            ImportExcel.TabIndex = 26;
+            ImportExcel.Text = "Import Passenger";
+            ImportExcel.UseVisualStyleBackColor = false;
+            ImportExcel.Click += ImportExcel_Click;
+            // 
             // AddBillForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(884, 557);
+            Controls.Add(ImportExcel);
             Controls.Add(buttonPDF);
             Controls.Add(dgvTour);
             Controls.Add(cancelButton);
@@ -321,5 +341,6 @@
         private DataGridViewTextBoxColumn price;
         private DataGridViewCheckBoxColumn choose;
         private Button buttonPDF;
+        private FontAwesome.Sharp.IconButton ImportExcel;
     }
 }
