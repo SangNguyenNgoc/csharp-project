@@ -30,4 +30,9 @@ public class PassengerBus
     {
         return _unit.Passenger.Create(passenger);
     }
+
+    public int CreatePassengerLastId(Passenger passenger)
+    {
+        return _unit.Passenger.CreateLastId(passenger);
+    }
 }
