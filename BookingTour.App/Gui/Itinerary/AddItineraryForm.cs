@@ -1,6 +1,7 @@
 ﻿using BookingTour.App.Bus;
 using BookingTour.App.Gui.Tour;
 using BookingTour.App.Gui.Utils;
+using BookingTour.App.Models;
 
 namespace BookingTour.App.Gui.Itinerary;
 
@@ -201,7 +202,8 @@ public partial class AddItineraryForm : Form
 
     private void AddTourButton_Click(object? sender, EventArgs e)
     {
-        var dateRangeForm = new AddTourForm();
+        var guides = GuideBus.Instance.GetAllGuides();
+        var dateRangeForm = new AddTourForm(guides);
         if (dateRangeForm.ShowDialog() != DialogResult.OK) return;
         var startDate = dateRangeForm.StartDate;
         var endDate = dateRangeForm.EndDate;
@@ -220,7 +222,11 @@ public partial class AddItineraryForm : Form
             Itinerary = null,
             Tickets = null
         };
-        TourBus.Instance.CreateTour(tour);
+        var tourSaved =  TourBus.Instance.CreateTour(tour);
+        if (tourSaved != null)
+        {
+            TourGuideBus.Instance.AddTourGuide(tourSaved.Id, (int)dateRangeForm.SelectedGuide!);
+        }
 
     }
 

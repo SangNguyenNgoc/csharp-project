@@ -27,7 +27,6 @@ public partial class AddAccountForm : Form
         roleComboBox.SelectedIndexChanged += roleComboBox_SelectedIndexChanged;
         if (_userId != null)
         {
-
             InitData();
         }
     }

@@ -1,121 +1,153 @@
 ﻿using BookingTour.App.Gui.Utils;
+using BookingTour.App.Models;
 
 namespace BookingTour.App.Gui.Tour;
 
 public partial class AddTourForm : Form
 {
-    private DateTimePicker dtpStartDate;
-    private DateTimePicker dtpEndDate;
-    private TextBox txtPrice;
-    private Button btnOk;
-    private Button btnCancel;
+    private readonly DateTimePicker _dtpStartDate;
+    private readonly DateTimePicker _dtpEndDate;
+    private readonly TextBox _txtPrice;
+    private readonly ComboBox _cbGuide;
+    private readonly Button _btnOk;
+    private readonly Button _btnCancel;
 
     public DateOnly? StartDate { get; private set; }
     public DateOnly? EndDate { get; private set; }
     public int? Price { get; private set; }
+    public int? SelectedGuide { get; private set; } // Lưu hướng dẫn viên được chọn
 
-    public AddTourForm()
+    public AddTourForm(List<Models.Guide> guides)
     {
-        this.Text = "Nhập thông tin khoảng thời gian và giá";
-        this.Size = new System.Drawing.Size(400, 300);
-        this.StartPosition = FormStartPosition.CenterParent;
+        Text = "Nhập thông tin khoảng thời gian, giá và hướng dẫn viên";
+        Size = new Size(400, 400); // Tăng chiều cao form để chứa ComboBox
+        StartPosition = FormStartPosition.CenterParent;
 
-        int labelX = 20;
-        int inputX = 150;
-        int verticalSpacing = 30;
-        int controlHeight = 30;
-        int labelWidth = 120;
-        int inputWidth = 200;
+        const int labelX = 20;
+        const int inputX = 150;
+        const int verticalSpacing = 30;
+        const int controlHeight = 30;
+        const int labelWidth = 120;
+        const int inputWidth = 200;
 
-        Font labelFont = new Font("Arial", 12, FontStyle.Regular);
-        Font inputFont = new Font("Arial", 12, FontStyle.Regular);
+        var labelFont = new Font("Arial", 12, FontStyle.Regular);
+        var inputFont = new Font("Arial", 12, FontStyle.Regular);
 
         // Label Start Date
         var lblStartDate = new Label
         {
             Text = "Ngày bắt đầu:",
             Font = labelFont,
-            Location = new System.Drawing.Point(labelX, verticalSpacing),
-            Size = new System.Drawing.Size(labelWidth, controlHeight)
+            Location = new Point(labelX, verticalSpacing),
+            Size = new Size(labelWidth, controlHeight)
         };
-        this.Controls.Add(lblStartDate);
+        Controls.Add(lblStartDate);
 
         // DateTimePicker Start Date
-        dtpStartDate = new DateTimePicker
+        _dtpStartDate = new DateTimePicker
         {
-            Location = new System.Drawing.Point(inputX, verticalSpacing),
+            Location = new Point(inputX, verticalSpacing),
             Font = inputFont,
             Format = DateTimePickerFormat.Short,
-            Size = new System.Drawing.Size(inputWidth, controlHeight)
+            Size = new Size(inputWidth, controlHeight)
         };
-        this.Controls.Add(dtpStartDate);
+        Controls.Add(_dtpStartDate);
 
         // Label End Date
         var lblEndDate = new Label
         {
             Text = "Ngày kết thúc:",
             Font = labelFont,
-            Location = new System.Drawing.Point(labelX, lblStartDate.Bottom + verticalSpacing),
-            Size = new System.Drawing.Size(labelWidth, controlHeight)
+            Location = new Point(labelX, lblStartDate.Bottom + verticalSpacing),
+            Size = new Size(labelWidth, controlHeight)
         };
-        this.Controls.Add(lblEndDate);
+        Controls.Add(lblEndDate);
 
         // DateTimePicker End Date
-        dtpEndDate = new DateTimePicker
+        _dtpEndDate = new DateTimePicker
         {
-            Location = new System.Drawing.Point(inputX, lblStartDate.Bottom + verticalSpacing),
+            Location = new Point(inputX, lblStartDate.Bottom + verticalSpacing),
             Font = inputFont,
             Format = DateTimePickerFormat.Short,
-            Size = new System.Drawing.Size(inputWidth, controlHeight)
+            Size = new Size(inputWidth, controlHeight)
         };
-        this.Controls.Add(dtpEndDate);
+        Controls.Add(_dtpEndDate);
 
         // Label Price
         var lblPrice = new Label
         {
             Text = "Giá tiền:",
             Font = labelFont,
-            Location = new System.Drawing.Point(labelX, lblEndDate.Bottom + verticalSpacing),
-            Size = new System.Drawing.Size(labelWidth, controlHeight)
+            Location = new Point(labelX, lblEndDate.Bottom + verticalSpacing),
+            Size = new Size(labelWidth, controlHeight)
         };
-        this.Controls.Add(lblPrice);
+        Controls.Add(lblPrice);
 
         // TextBox Price
-        txtPrice = new TextBox
+        _txtPrice = new TextBox
         {
-            Location = new System.Drawing.Point(inputX, lblEndDate.Bottom + verticalSpacing),
+            Location = new Point(inputX, lblEndDate.Bottom + verticalSpacing),
             Font = inputFont,
-            Size = new System.Drawing.Size(inputWidth, controlHeight)
+            Size = new Size(inputWidth, controlHeight)
         };
-        this.Controls.Add(txtPrice);
+        Controls.Add(_txtPrice);
+
+        // Label Guide
+        var lblGuide = new Label
+        {
+            Text = "HDV:",
+            Font = labelFont,
+            Location = new Point(labelX, _txtPrice.Bottom + verticalSpacing),
+            Size = new Size(labelWidth, controlHeight)
+        };
+        Controls.Add(lblGuide);
+
+        // ComboBox Guide
+        _cbGuide = new ComboBox
+        {
+            Location = new Point(inputX, _txtPrice.Bottom + verticalSpacing),
+            Font = inputFont,
+            Size = new Size(inputWidth, controlHeight),
+            DropDownStyle = ComboBoxStyle.DropDownList
+        };
+        _cbGuide.DataSource = guides;
+        _cbGuide.DisplayMember = "FullName";
+        _cbGuide.ValueMember = "Id";
+        Controls.Add(_cbGuide);
 
         // Button OK
-        btnOk = new Button
+        _btnOk = new Button
         {
             Text = "OK",
-            Location = new System.Drawing.Point(80, txtPrice.Bottom + verticalSpacing),
+            Location = new Point(80, _cbGuide.Bottom + verticalSpacing),
             Font = new Font("Arial", 12, FontStyle.Bold),
-            Size = new System.Drawing.Size(100, 40)
+            Size = new Size(100, 40)
         };
-        btnOk.Click += BtnOk_Click;
-        this.Controls.Add(btnOk);
+        _btnOk.Click += BtnOk_Click;
+        Controls.Add(_btnOk);
 
         // Button Cancel
-        btnCancel = new Button
+        _btnCancel = new Button
         {
             Text = "Hủy",
-            Location = new System.Drawing.Point(200, txtPrice.Bottom + verticalSpacing),
+            Location = new Point(200, _cbGuide.Bottom + verticalSpacing),
             Font = new Font("Arial", 12, FontStyle.Bold),
-            Size = new System.Drawing.Size(100, 40)
+            Size = new Size(100, 40)
         };
-        btnCancel.Click += (s, e) => this.Close();
-        this.Controls.Add(btnCancel);
+        _btnCancel.Click += (s, e) => Close();
+        Controls.Add(_btnCancel);
     }
 
-    private void BtnOk_Click(object sender, EventArgs e)
+    public sealed override string Text
     {
-        var start = DateOnly.FromDateTime(dtpStartDate.Value);
-        var end = DateOnly.FromDateTime(dtpEndDate.Value);
+        get { return base.Text; }
+        set { base.Text = value; }
+    }
+
+    private void BtnOk_Click(object? sender, EventArgs e)
+    {
+        var start = DateOnly.FromDateTime(_dtpStartDate.Value);
+        var end = DateOnly.FromDateTime(_dtpEndDate.Value);
 
         if (start > end)
         {
@@ -123,18 +155,26 @@ public partial class AddTourForm : Form
             return;
         }
 
-        // Kiểm tra giá tiền hợp lệ
-        if (string.IsNullOrWhiteSpace(txtPrice.Text) || !int.TryParse(txtPrice.Text, out var price) || price < 0)
+        if (string.IsNullOrWhiteSpace(_txtPrice.Text) || !int.TryParse(_txtPrice.Text, out var price) || price < 0)
         {
             MessageBox.Show("Vui lòng nhập giá tiền hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+        }
+
+        if (_cbGuide.SelectedItem == null)
+        {
+            MessageBox.Show("Vui lòng chọn hướng dẫn viên!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return;
         }
 
         StartDate = start;
         EndDate = end;
         Price = price;
+        SelectedGuide = (int) _cbGuide.SelectedValue!;
+        
+        Console.WriteLine(SelectedGuide);
 
-        this.DialogResult = DialogResult.OK;
-        this.Close();
+        DialogResult = DialogResult.OK;
+        Close();
     }
 }

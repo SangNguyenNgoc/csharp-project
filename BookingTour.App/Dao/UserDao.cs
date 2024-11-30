@@ -33,6 +33,32 @@ public class UserDao
                 Role = RoleDao.Instance.GetById(Convert.ToInt32(row["role_id"])) // lấy Role tương ứng
             }).ToList();
     }
+    
+    public ICollection<User> GetUsersByRoleId(int roleId)
+    {
+        const string query = "SELECT * FROM User WHERE role_id = @roleId";
+
+        var parameters = new List<MySqlParameter>
+        {
+            new("@roleId", roleId)
+        };
+
+        var result = _dbHelper.ExecuteQuery(query, parameters.ToArray());
+
+        return (from DataRow row in result.Rows
+            select new User
+            {
+                Id = Convert.ToInt32(row["id"]),
+                Username = row["username"].ToString(),
+                Password = row["password"].ToString(),
+                Name = row["name"].ToString(),
+                Email = row["email"].ToString(),
+                PhoneNumber = row["phone_number"].ToString(),
+                IsBlock = row["is_block"] != DBNull.Value ? Convert.ToBoolean(row["is_block"]) : null,
+                Role = RoleDao.Instance.GetById(Convert.ToInt32(row["role_id"])) // Lấy Role tương ứng
+            }).ToList();
+    }
+
 
     public User? GetById(int id)
     {

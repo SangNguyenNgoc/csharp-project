@@ -186,6 +186,8 @@ public class TourBus
     {
         return _unit.Tour.GetToursOfGuide(guideId);
     }
+    
+    
     public Tour GetToursOfBill(int billId)
     {
         return _unit.Tour.GetToursOfBill(billId);
@@ -195,6 +197,8 @@ public class TourBus
     {
         return _unit.Tour.GetById(id);
     }
+    
+    
     public ICollection<Tour> GetAllForBill()
     {
         return _unit.Tour.GetAllForBill();

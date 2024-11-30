@@ -1,5 +1,6 @@
 ﻿using BookingTour.App.Context;
 using BookingTour.App.Models;
+using FontAwesome.Sharp;
 
 namespace BookingTour.App.Gui
 {
@@ -35,8 +36,10 @@ namespace BookingTour.App.Gui
             panelLogo = new Panel();
             logoButton = new FontAwesome.Sharp.IconButton();
             iconButtonAccount = new FontAwesome.Sharp.IconButton();
+            iconButtonGuide = new FontAwesome.Sharp.IconButton();
             iconButtonLocation = new FontAwesome.Sharp.IconButton();
             iconButtonService = new FontAwesome.Sharp.IconButton();
+            iconButtonStatistic = new FontAwesome.Sharp.IconButton();
             iconButtonSchedule = new FontAwesome.Sharp.IconButton();
             iconButtonBill = new FontAwesome.Sharp.IconButton();
             iconButtonCustomer = new FontAwesome.Sharp.IconButton();
@@ -114,6 +117,30 @@ namespace BookingTour.App.Gui
             iconButtonAccount.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconButtonAccount.UseVisualStyleBackColor = true;
             iconButtonAccount.Click += iconButtonAccount_Click;
+            //
+            // iconButtonGuide
+            //
+            iconButtonGuide.Cursor = Cursors.Hand;
+            iconButtonGuide.Dock = DockStyle.Top;
+            iconButtonGuide.FlatAppearance.BorderSize = 0;
+            iconButtonGuide.FlatStyle = FlatStyle.Flat;
+            iconButtonGuide.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            iconButtonGuide.ForeColor = SystemColors.Control;
+            iconButtonGuide.IconChar = FontAwesome.Sharp.IconChar.UserCircle;
+            iconButtonGuide.IconColor = Color.FromArgb(20, 184, 166);
+            iconButtonGuide.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButtonGuide.IconSize = 20;
+            iconButtonGuide.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButtonGuide.Location = new Point(0, 319);
+            iconButtonGuide.Name = "iconButtonGuide";
+            iconButtonGuide.Padding = new Padding(10, 0, 0, 0);
+            iconButtonGuide.Size = new Size(170, 40);
+            iconButtonGuide.TabIndex = 7;
+            iconButtonGuide.Text = "   Hướng dẫn viên";
+            iconButtonGuide.TextAlign = ContentAlignment.MiddleLeft;
+            iconButtonGuide.TextImageRelation = TextImageRelation.ImageBeforeText;
+            iconButtonGuide.UseVisualStyleBackColor = true;
+            iconButtonGuide.Click += iconButtonGuide_Click;
             // 
             // iconButtonLocation
             // 
@@ -162,6 +189,30 @@ namespace BookingTour.App.Gui
             iconButtonService.TextImageRelation = TextImageRelation.ImageBeforeText;
             iconButtonService.UseVisualStyleBackColor = true;
             iconButtonService.Click += iconButtonService_Click;
+            // 
+            // iconButtonStatistic
+            // 
+            iconButtonService.Cursor = Cursors.Hand;
+            iconButtonService.Dock = DockStyle.Top;
+            iconButtonService.FlatAppearance.BorderSize = 0;
+            iconButtonService.FlatStyle = FlatStyle.Flat;
+            iconButtonService.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            iconButtonService.ForeColor = SystemColors.Control;
+            iconButtonService.IconChar = FontAwesome.Sharp.IconChar.ChartSimple;
+            iconButtonService.IconColor = Color.FromArgb(20, 184, 166);
+            iconButtonService.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButtonService.IconSize = 20;
+            iconButtonService.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButtonService.Location = new Point(0, 239);
+            iconButtonService.Name = "iconButtonStatistic";
+            iconButtonService.Padding = new Padding(10, 0, 0, 0);
+            iconButtonService.Size = new Size(170, 40);
+            iconButtonService.TabIndex = 5;
+            iconButtonService.Text = "   Thống kê";
+            iconButtonService.TextAlign = ContentAlignment.MiddleLeft;
+            iconButtonService.TextImageRelation = TextImageRelation.ImageBeforeText;
+            iconButtonService.UseVisualStyleBackColor = true;
+            iconButtonService.Click += iconButtonStatistic_Click;
             // 
             // iconButtonSchedule
             // 
@@ -355,6 +406,8 @@ namespace BookingTour.App.Gui
         private FontAwesome.Sharp.IconButton iconButtonCustomer;
         private FontAwesome.Sharp.IconButton iconButtonAccount;
         private FontAwesome.Sharp.IconButton iconButtonLocation;
+        private FontAwesome.Sharp.IconButton iconButtonGuide;
+        private FontAwesome.Sharp.IconButton iconButtonStatistic;
         private FontAwesome.Sharp.IconSplitButton iconSplitButton1;
         private Panel panelTop;
         private FontAwesome.Sharp.IconButton logoButton;

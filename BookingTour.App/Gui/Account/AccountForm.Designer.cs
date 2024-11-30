@@ -73,11 +73,12 @@
             dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
             dataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
-            dataGridView1.Location = new Point(12, 55);
+            dataGridView1.Dock = DockStyle.Bottom;
+            dataGridView1.Location = new Point(0, 67);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridView1.RowTemplate.Height = 35;
-            dataGridView1.Size = new Size(974, 550);
+            dataGridView1.Size = new Size(998, 550);
             dataGridView1.TabIndex = 0;
             dataGridView1.CellContentClick += DataGridView1_CellContentClick;
             dataGridView1.CellValueChanged += DataGridView1_CellValueChanged;

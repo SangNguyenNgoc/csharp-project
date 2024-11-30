@@ -1,6 +1,7 @@
 ﻿using BookingTour.App.Gui.Account;
 using BookingTour.App.Gui.Itinerary;
 using BookingTour.App.Gui.BillGui;
+using BookingTour.App.Gui.Guide;
 using FontAwesome.Sharp;
 using BookingTour.App.Models;
 using Session = BookingTour.App.Context.Session;
@@ -10,6 +11,7 @@ using BookingTour.App.Gui.Utils;
 using BookingTour.App.Gui.Tour;
 using BookingTour.App.Gui.TourGui;
 using BookingTour.App.Gui.PassengerGui;
+using BookingTour.App.Gui.Statistic;
 
 namespace BookingTour.App.Gui;
 
@@ -55,6 +57,7 @@ public partial class MainForm : Form
             panelMenu.Controls.Add(iconButtonLocation);
             panelMenu.Controls.Add(iconButtonService);
             panelMenu.Controls.Add(iconButtonSchedule);
+            panelMenu.Controls.Add(iconButtonGuide);
         }
         if (role == "ADMIN" || role == "STAFF")
         {
@@ -141,6 +144,12 @@ public partial class MainForm : Form
         ActiveButton(sender);
         OpenChildRorm(new ServiceForm());
     }
+    
+    private void iconButtonStatistic_Click(object sender, EventArgs e)
+    {
+        ActiveButton(sender);
+        OpenChildRorm(new StatisticForm());
+    }
 
     private void iconButtonLocation_Click(object sender, EventArgs e)
     {
@@ -152,6 +161,12 @@ public partial class MainForm : Form
     {
         ActiveButton(sender);
         OpenChildRorm(new AccountForm());
+    }
+
+    private void iconButtonGuide_Click(object sender, EventArgs e)
+    {
+        ActiveButton(sender);
+        OpenChildRorm(new GuideForm());
     }
 
     private void MainForm_Load(object sender, EventArgs e)

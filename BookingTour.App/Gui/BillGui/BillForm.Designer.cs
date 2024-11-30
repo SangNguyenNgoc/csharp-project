@@ -152,35 +152,40 @@
             // 
             id.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             id.DataPropertyName = "Id";
-            id.FillWeight = 30F;
+            id.FillWeight = 74.86205F;
             id.HeaderText = "STT";
             id.Name = "id";
             id.ReadOnly = true;
             // 
             // total_passenger
             // 
+            total_passenger.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            total_passenger.FillWeight = 96.5518951F;
             total_passenger.HeaderText = "Tổng Khách Hàng";
             total_passenger.Name = "total_passenger";
-            total_passenger.Width = 200;
             // 
             // total_price
             // 
+            total_price.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            total_price.FillWeight = 96.5518951F;
             total_price.HeaderText = "Tổng tiền";
             total_price.Name = "total_price";
-            total_price.Width = 200;
             // 
             // invoice_issuer
             // 
+            invoice_issuer.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            invoice_issuer.FillWeight = 96.5518951F;
             invoice_issuer.HeaderText = "Người xuất";
             invoice_issuer.Name = "invoice_issuer";
-            invoice_issuer.Width = 300;
             // 
             // action
             // 
+            action.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.NullValue = resources.GetObject("dataGridViewCellStyle2.NullValue");
             dataGridViewCellStyle2.Padding = new Padding(8);
             action.DefaultCellStyle = dataGridViewCellStyle2;
+            action.FillWeight = 65.48223F;
             action.HeaderText = "";
             action.Image = (Image)resources.GetObject("action.Image");
             action.ImageLayout = DataGridViewImageCellLayout.Zoom;

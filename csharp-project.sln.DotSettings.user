@@ -4,12 +4,14 @@
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=BookingTour_002EApp_002FGui_002FAccount_002FAccountForm/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=BookingTour_002EApp_002FGui_002FAccount_002FAccountForm/@EntryIndexRemoved">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=BookingTour_002EApp_002FGui_002FAccount_002FAddAccountForm/@EntryIndexedValue">False</s:Boolean>
-	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=BookingTour_002EApp_002FGui_002FAccount_002FAddAccountForm/@EntryIndexRemoved">True</s:Boolean>
+	
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=BookingTour_002EApp_002FGui_002FAccount_002FAccountForm/@EntryIndexedValue">True</s:Boolean>
-	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=BookingTour_002EApp_002FGui_002FMainForm/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=BookingTour_002EApp_002FGui_002FGuide_002FGuideForm/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=BookingTour_002EApp_002FGui_002FMainForm/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=BookingTour_002EApp_002FGui_002FPlace_002FPlaceForm/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=BookingTour_002EApp_002FGui_002FPlace_002FPlaceForm/@EntryIndexRemoved">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=BookingTour_002EApp_002FGui_002FPlace_002FPlaceForm/@EntryIndexedValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=BookingTour_002EApp_002FGui_002FStatistic_002FStatisticForm/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=BookingTour_002EApp_002FProperties_002FResources/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=BookingTour_002EApp_002FView_002FMainForm/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=BookingTour_002EApp_002FView_002FMainForm/@EntryIndexRemoved">True</s:Boolean>

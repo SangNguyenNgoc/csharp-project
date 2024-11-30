@@ -15,6 +15,11 @@ public class UserBus
     {
         return _unit.User.GetAll();
     }
+    
+    public ICollection<User> GetAllUsersByRole(int roleId)
+    {
+        return _unit.User.GetUsersByRoleId(roleId);
+    }
 
     public int CreateUser(User user)
     {
@@ -75,4 +80,6 @@ public class UserBus
         }
         return user;
     }
+    
+    
 }
