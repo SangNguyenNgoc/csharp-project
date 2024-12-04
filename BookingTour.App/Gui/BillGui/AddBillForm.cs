@@ -229,7 +229,7 @@ public partial class AddBillForm : System.Windows.Forms.Form
             {
                 Id = _billId!.Value,
                 TotalPassenger = selectedPassengers.Count,
-                TotalPrice = Convert.ToInt32(totalpriceTextbox.Text),
+                TotalPrice = Convert.ToInt32(tour.Price* selectedPassengers.Count),
                 InvoiceIssuer = Convert.ToInt32(Session.Get<Models.User>("CurrentUser")?.Id),
             };
             BillBus.Instance.UpdateBill(bill);
