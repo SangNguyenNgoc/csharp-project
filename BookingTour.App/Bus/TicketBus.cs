@@ -13,4 +13,8 @@ public class TicketBus
     {
         return _unit.Ticket.Create(ticket);
     }
+
+    public int DeleteTicketByBillId(int billId) {
+        return _unit.Ticket.DeleteByBillId(billId);
+    }
 }

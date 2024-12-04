@@ -222,7 +222,33 @@ public partial class AddBillForm : System.Windows.Forms.Form
         }
         else
         {
-            MessageBox.Show("Coming soon");
+            TicketBus.Instance.DeleteTicketByBillId(_billId!.Value);
+            List<Passenger> selectedPassengers = GetSelectedPassengers();
+            Models.Tour tour = TourBus.Instance.GetById(GetSelectedTour());
+            Bill bill = new Bill
+            {
+                Id = _billId!.Value,
+                TotalPassenger = selectedPassengers.Count,
+                TotalPrice = Convert.ToInt32(totalpriceTextbox.Text),
+                InvoiceIssuer = Convert.ToInt32(Session.Get<Models.User>("CurrentUser")?.Id),
+            };
+            BillBus.Instance.UpdateBill(bill);
+
+            foreach (var passenger in selectedPassengers)
+            {
+                Ticket ticket = new Ticket
+                {
+                    Price = Convert.ToInt32(tour.Price),
+                    PassengerId = passenger.Id,
+                    BillId = _billId,
+                    TourId = tour.Id,
+                };
+                TicketBus.Instance.CreateTicket(ticket);
+            }
+
+            MessageBox.Show(@"Hóa đơn sửa thành công!", @"Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            ResetParentForm();
+            this.Close();
         }
     }
     private void ResetParentForm()

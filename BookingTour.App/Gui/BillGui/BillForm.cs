@@ -73,5 +73,23 @@ public partial class BillForm : Form
         var addBillForm = new AddBillForm(this, billId);
         addBillForm.Show();
     }
+
+    private void refershButton_Click(object sender, EventArgs e)
+    {
+        LoadBillData(null);
+    }
+
+    private void searchButton_Click(object sender, EventArgs e)
+    {
+        var keywords = searchTextbox.Text.Trim().ToLower();
+        var filteredData = BillBus.Instance.GetAllBills()
+        .Where(bill => bill.Id.ToString().Equals(keywords, StringComparison.OrdinalIgnoreCase) ||
+            bill.InvoiceIssuerNavigation.Name.ToString().ToLower().Contains(keywords))
+        .ToList();
+
+        // Hiển thị dữ liệu đã lọc
+        LoadBillData(filteredData);
+        searchTextbox.Text = "";
+    }
 }
 
