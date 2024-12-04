@@ -21,4 +21,8 @@ public class BillBus
     {
         return _unit.Bill.Create(bill);
     }
+    public int UpdateBill(Bill bill)
+    {
+        return _unit.Bill.Update(bill);
+    }
 }

@@ -66,12 +66,13 @@
             searchButton.IconChar = FontAwesome.Sharp.IconChar.None;
             searchButton.IconColor = Color.Black;
             searchButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            searchButton.Location = new Point(851, 43);
+            searchButton.Location = new Point(842, 9);
             searchButton.Name = "searchButton";
             searchButton.Size = new Size(79, 29);
             searchButton.TabIndex = 8;
             searchButton.Text = "Tìm";
             searchButton.UseVisualStyleBackColor = false;
+            searchButton.Click += searchButton_Click;
             // 
             // searchTextbox
             // 
@@ -97,6 +98,7 @@
             refershButton.TabIndex = 5;
             refershButton.Text = "Làm mới";
             refershButton.UseVisualStyleBackColor = false;
+            refershButton.Click += refershButton_Click;
             // 
             // createBillButton
             // 

@@ -28,4 +28,16 @@ public class TicketDao
 
         return _dbHelper.ExecuteNonQuery(query, parameters);
     }
+
+    public int DeleteByBillId(int billid)
+    {
+        const string query = "DELETE FROM Ticket WHERE bill_id = @BillId";
+
+        var parameters = new MySql.Data.MySqlClient.MySqlParameter[]
+        {
+            new("@BillId", billid)
+        };
+
+        return _dbHelper.ExecuteNonQuery(query, parameters);
+    }
 }
