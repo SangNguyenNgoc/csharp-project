@@ -17,7 +17,7 @@ public class GuideDao
             @"SELECT g.id as id, g.language as languague, u.name as name, u.email as email, u.phone_number as phone 
             FROM guides g
             JOIN user u on g.account_id = u.id
-            JOIN tour_guides tg on tg.guide_id = u.id
+            JOIN tour_guides tg on tg.guide_id = g.id
             WHERE tg.tour_id = @tourId";
 
         var parameters = new List<MySqlParameter>

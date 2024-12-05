@@ -53,7 +53,6 @@
             searchActivityButton = new FontAwesome.Sharp.IconButton();
             searchActivityTextbox = new TextBox();
             refreshActivityButton = new FontAwesome.Sharp.IconButton();
-            mySqlDataAdapter1 = new MySql.Data.MySqlClient.MySqlDataAdapter();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             SuspendLayout();
@@ -316,13 +315,6 @@
             refreshActivityButton.UseVisualStyleBackColor = false;
             refreshActivityButton.Click += refreshActivityButton_Click;
             // 
-            // mySqlDataAdapter1
-            // 
-            mySqlDataAdapter1.DeleteCommand = null;
-            mySqlDataAdapter1.InsertCommand = null;
-            mySqlDataAdapter1.SelectCommand = null;
-            mySqlDataAdapter1.UpdateCommand = null;
-            // 
             // PlaceForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -367,7 +359,6 @@
         private FontAwesome.Sharp.IconButton searchActivityButton;
         private TextBox searchActivityTextbox;
         private FontAwesome.Sharp.IconButton refreshActivityButton;
-        private MySql.Data.MySqlClient.MySqlDataAdapter mySqlDataAdapter1;
         private DataGridViewTextBoxColumn AcId;
         private DataGridViewTextBoxColumn AcName;
         private DataGridViewImageColumn AcAction;

@@ -81,10 +81,12 @@ public class ItineraryDetailDao
         SELECT COUNT(*) 
         FROM itinerary_detail 
         WHERE tour_interface_id = @TourInterfaceId 
-          AND day_number != @DayNumber
+          AND (day_number = @DayNumber
           AND (
-              (start_time <= @EndTime AND end_time >= @StartTime)
-          )";
+              (start_time <= @StartTime AND end_time >= @StartTime)
+              OR (start_time <= @EndTime And end_time >= @EndTime)
+              OR (start_time >= @StartTime AND end_time <= @EndTime)
+          ))";
 
         var parameters = new[]
         {

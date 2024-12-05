@@ -71,7 +71,16 @@ public class TourBus
             _logger.Log("Low", $"Failed to create tour: {validateMessage}");
             return null;
         }
-        return _unit.Tour.AddTour(tour!) == 0 ? null : tour;
+
+        var result = _unit.Tour.AddTour(tour!);
+
+        if (result > -1)
+        {
+            tour!.Id = result;
+            return tour;
+        }
+
+        return null;
     }
     
     public Tour? UpdateTour(Tour? tour)

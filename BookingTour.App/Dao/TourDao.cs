@@ -154,7 +154,8 @@ public class TourDao
     public int AddTour(Tour tour)
     {
         var query = @"INSERT INTO tour (date_start, date_end, itinerary_id, price, capacity, remaining_slots) 
-                      VALUES (@DateStart, @DateEnd, @ItineraryId, @Price, @Capacity, @RemainingSlots)";
+                      VALUES (@DateStart, @DateEnd, @ItineraryId, @Price, @Capacity, @RemainingSlots);
+                      SELECT LAST_INSERT_ID()";
 
         var parameters = new[]
         {
@@ -168,7 +169,9 @@ public class TourDao
             new MySqlParameter("@RemainingSlots", tour.RemainingSlots ?? (object)DBNull.Value)
         };
 
-        return _dbHelper.ExecuteNonQuery(query, parameters);
+        var result = _dbHelper.ExecuteScalar(query, parameters);
+        // Trả về ID nếu có, hoặc -1 nếu không thành công
+        return result != null ? Convert.ToInt32(result) : -1;
     }
 
     public Tour? GetById(int id)

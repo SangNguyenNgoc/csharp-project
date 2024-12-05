@@ -6,21 +6,20 @@ namespace BookingTour.App.Gui.Tour;
 public partial class AddTourForm : Form
 {
     private readonly DateTimePicker _dtpStartDate;
-    private readonly DateTimePicker _dtpEndDate;
     private readonly TextBox _txtPrice;
     private readonly ComboBox _cbGuide;
     private readonly Button _btnOk;
     private readonly Button _btnCancel;
 
     public DateOnly? StartDate { get; private set; }
-    public DateOnly? EndDate { get; private set; }
     public int? Price { get; private set; }
     public int? SelectedGuide { get; private set; } // Lưu hướng dẫn viên được chọn
 
     public AddTourForm(List<Models.Guide> guides)
     {
+        var scaleFactor = GuiUtils.GetScaleInScreen(this);
         Text = "Nhập thông tin khoảng thời gian, giá và hướng dẫn viên";
-        Size = new Size(400, 400); // Tăng chiều cao form để chứa ComboBox
+        Size = new Size((int)(400 * scaleFactor), (int)(400 * scaleFactor)); // Tăng chiều cao form để chứa ComboBox
         StartPosition = FormStartPosition.CenterParent;
 
         const int labelX = 20;
@@ -53,32 +52,12 @@ public partial class AddTourForm : Form
         };
         Controls.Add(_dtpStartDate);
 
-        // Label End Date
-        var lblEndDate = new Label
-        {
-            Text = "Ngày kết thúc:",
-            Font = labelFont,
-            Location = new Point(labelX, lblStartDate.Bottom + verticalSpacing),
-            Size = new Size(labelWidth, controlHeight)
-        };
-        Controls.Add(lblEndDate);
-
-        // DateTimePicker End Date
-        _dtpEndDate = new DateTimePicker
-        {
-            Location = new Point(inputX, lblStartDate.Bottom + verticalSpacing),
-            Font = inputFont,
-            Format = DateTimePickerFormat.Short,
-            Size = new Size(inputWidth, controlHeight)
-        };
-        Controls.Add(_dtpEndDate);
-
         // Label Price
         var lblPrice = new Label
         {
             Text = "Giá tiền:",
             Font = labelFont,
-            Location = new Point(labelX, lblEndDate.Bottom + verticalSpacing),
+            Location = new Point(labelX, lblStartDate.Bottom + verticalSpacing),
             Size = new Size(labelWidth, controlHeight)
         };
         Controls.Add(lblPrice);
@@ -86,7 +65,7 @@ public partial class AddTourForm : Form
         // TextBox Price
         _txtPrice = new TextBox
         {
-            Location = new Point(inputX, lblEndDate.Bottom + verticalSpacing),
+            Location = new Point(inputX, lblStartDate.Bottom + verticalSpacing),
             Font = inputFont,
             Size = new Size(inputWidth, controlHeight)
         };
@@ -136,6 +115,8 @@ public partial class AddTourForm : Form
         };
         _btnCancel.Click += (s, e) => Close();
         Controls.Add(_btnCancel);
+        
+        GuiUtils.Scale(this, scaleFactor);
     }
 
     public sealed override string Text
@@ -147,14 +128,6 @@ public partial class AddTourForm : Form
     private void BtnOk_Click(object? sender, EventArgs e)
     {
         var start = DateOnly.FromDateTime(_dtpStartDate.Value);
-        var end = DateOnly.FromDateTime(_dtpEndDate.Value);
-
-        if (start > end)
-        {
-            MessageBox.Show("Ngày bắt đầu không thể lớn hơn ngày kết thúc!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return;
-        }
-
         if (string.IsNullOrWhiteSpace(_txtPrice.Text) || !int.TryParse(_txtPrice.Text, out var price) || price < 0)
         {
             MessageBox.Show("Vui lòng nhập giá tiền hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -168,7 +141,6 @@ public partial class AddTourForm : Form
         }
 
         StartDate = start;
-        EndDate = end;
         Price = price;
         SelectedGuide = (int) _cbGuide.SelectedValue!;
         

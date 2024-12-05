@@ -206,7 +206,7 @@ public partial class AddItineraryForm : Form
         var dateRangeForm = new AddTourForm(guides);
         if (dateRangeForm.ShowDialog() != DialogResult.OK) return;
         var startDate = dateRangeForm.StartDate;
-        var endDate = dateRangeForm.EndDate;
+        var endDate = startDate!.Value.AddDays(Data!.NumberOfDays);
         var price = dateRangeForm.Price;
 
         if (Data == null) return;
@@ -214,7 +214,7 @@ public partial class AddItineraryForm : Form
         {
             Id = 0,
             DateStart = startDate!,
-            DateEnd = endDate!,
+            DateEnd = endDate,
             ItineraryId = Data.Id,
             Price = price,
             Capacity = Data.Capacity,
@@ -227,7 +227,7 @@ public partial class AddItineraryForm : Form
         {
             TourGuideBus.Instance.AddTourGuide(tourSaved.Id, (int)dateRangeForm.SelectedGuide!);
         }
-
+        MessageBox.Show("Thêm thành công.", "Thông báo", MessageBoxButtons.OK);
     }
 
     private void BtnCancel_Click(object sender, EventArgs e)

@@ -37,6 +37,9 @@
     <Compile Update="Gui\Place\PlaceForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Gui\Service\Test.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Gui\Statistic\StatisticForm.cs">
       <SubType>Form</SubType>
     </Compile>
