@@ -192,27 +192,27 @@ namespace BookingTour.App.Gui
             // 
             // iconButtonStatistic
             // 
-            iconButtonService.Cursor = Cursors.Hand;
-            iconButtonService.Dock = DockStyle.Top;
-            iconButtonService.FlatAppearance.BorderSize = 0;
-            iconButtonService.FlatStyle = FlatStyle.Flat;
-            iconButtonService.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
-            iconButtonService.ForeColor = SystemColors.Control;
-            iconButtonService.IconChar = FontAwesome.Sharp.IconChar.ChartSimple;
-            iconButtonService.IconColor = Color.FromArgb(20, 184, 166);
-            iconButtonService.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButtonService.IconSize = 20;
-            iconButtonService.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButtonService.Location = new Point(0, 239);
-            iconButtonService.Name = "iconButtonStatistic";
-            iconButtonService.Padding = new Padding(10, 0, 0, 0);
-            iconButtonService.Size = new Size(170, 40);
-            iconButtonService.TabIndex = 5;
-            iconButtonService.Text = "   Thống kê";
-            iconButtonService.TextAlign = ContentAlignment.MiddleLeft;
-            iconButtonService.TextImageRelation = TextImageRelation.ImageBeforeText;
-            iconButtonService.UseVisualStyleBackColor = true;
-            iconButtonService.Click += iconButtonStatistic_Click;
+            iconButtonStatistic.Cursor = Cursors.Hand;
+            iconButtonStatistic.Dock = DockStyle.Top;
+            iconButtonStatistic.FlatAppearance.BorderSize = 0;
+            iconButtonStatistic.FlatStyle = FlatStyle.Flat;
+            iconButtonStatistic.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            iconButtonStatistic.ForeColor = SystemColors.Control;
+            iconButtonStatistic.IconChar = FontAwesome.Sharp.IconChar.ChartSimple;
+            iconButtonStatistic.IconColor = Color.FromArgb(20, 184, 166);
+            iconButtonStatistic.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButtonStatistic.IconSize = 20;
+            iconButtonStatistic.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButtonStatistic.Location = new Point(0, 239);
+            iconButtonStatistic.Name = "iconButtonStatistic";
+            iconButtonStatistic.Padding = new Padding(10, 0, 0, 0);
+            iconButtonStatistic.Size = new Size(170, 40);
+            iconButtonStatistic.TabIndex = 5;
+            iconButtonStatistic.Text = "   Thống kê";
+            iconButtonStatistic.TextAlign = ContentAlignment.MiddleLeft;
+            iconButtonStatistic.TextImageRelation = TextImageRelation.ImageBeforeText;
+            iconButtonStatistic.UseVisualStyleBackColor = true;
+            iconButtonStatistic.Click += iconButtonStatistic_Click;
             // 
             // iconButtonSchedule
             // 

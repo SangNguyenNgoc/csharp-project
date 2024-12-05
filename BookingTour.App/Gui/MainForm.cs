@@ -56,6 +56,7 @@ public partial class MainForm : Form
             panelMenu.Controls.Add(iconButtonAccount);
             panelMenu.Controls.Add(iconButtonLocation);
             panelMenu.Controls.Add(iconButtonService);
+            panelMenu.Controls.Add(iconButtonStatistic);
             panelMenu.Controls.Add(iconButtonSchedule);
             panelMenu.Controls.Add(iconButtonGuide);
         }
